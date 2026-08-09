@@ -1,0 +1,33 @@
+{
+  "": {
+    "swift-dependencies": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/primary.swiftdeps"
+  },
+  "/home/user/jubilant-enigma/Packages/ScheduleEngine/Tests/ScheduleEngineTests/CourseIntervalTests.swift": {
+    "dependencies": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/CourseIntervalTests.d",
+    "object": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/CourseIntervalTests.swift.o",
+    "swiftmodule": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/CourseIntervalTests~partial.swiftmodule",
+    "swift-dependencies": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/CourseIntervalTests.swiftdeps",
+    "diagnostics": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/CourseIntervalTests.dia"
+  },
+  "/home/user/jubilant-enigma/Packages/ScheduleEngine/Tests/ScheduleEngineTests/FixedTimesTests.swift": {
+    "dependencies": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/FixedTimesTests.d",
+    "object": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/FixedTimesTests.swift.o",
+    "swiftmodule": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/FixedTimesTests~partial.swiftmodule",
+    "swift-dependencies": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/FixedTimesTests.swiftdeps",
+    "diagnostics": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/FixedTimesTests.dia"
+  },
+  "/home/user/jubilant-enigma/Packages/ScheduleEngine/Tests/ScheduleEngineTests/Helpers.swift": {
+    "dependencies": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/Helpers.d",
+    "object": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/Helpers.swift.o",
+    "swiftmodule": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/Helpers~partial.swiftmodule",
+    "swift-dependencies": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/Helpers.swiftdeps",
+    "diagnostics": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/Helpers.dia"
+  },
+  "/home/user/jubilant-enigma/Packages/ScheduleEngine/Tests/ScheduleEngineTests/PatternTests.swift": {
+    "dependencies": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/PatternTests.d",
+    "object": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/PatternTests.swift.o",
+    "swiftmodule": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/PatternTests~partial.swiftmodule",
+    "swift-dependencies": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/PatternTests.swiftdeps",
+    "diagnostics": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/PatternTests.dia"
+  }
+}

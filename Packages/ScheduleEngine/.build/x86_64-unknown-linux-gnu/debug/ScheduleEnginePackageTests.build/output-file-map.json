@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEnginePackageTests.build/primary.swiftdeps"
+  },
+  "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEnginePackageTests.derived/runner.swift": {
+    "dependencies": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEnginePackageTests.build/runner.d",
+    "object": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEnginePackageTests.build/runner.swift.o",
+    "swiftmodule": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEnginePackageTests.build/runner~partial.swiftmodule",
+    "swift-dependencies": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEnginePackageTests.build/runner.swiftdeps",
+    "diagnostics": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEnginePackageTests.build/runner.dia"
+  }
+}

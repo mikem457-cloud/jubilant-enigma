@@ -1,0 +1,3 @@
+module ScheduleEngine {
+    header "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/include/ScheduleEngine-Swift.h"
+}
