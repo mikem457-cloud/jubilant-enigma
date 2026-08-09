@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FloofSync — Today</title>
+<style>
+  :root{
+    --bg:#EEF1EC;
+    --backdrop-deep:#DCE3D8;
+    --paper:#FAF6EC;
+    --paper-deep:#F1E9D6;
+    --ink:#2A2926;
+    --ink-soft:#6B6A63;
+    --ink-faint:#9C978C;
+    --marigold:#E2A33B;
+    --marigold-deep:#B9791F;
+    --clinic-red:#C23B3B;
+    --clinic-red-soft:#F5DFDD;
+    --sage:#6E8B5E;
+    --sage-soft:#E4EADD;
+    --line:#DED7C2;
+    --pet-bella:#C6577B;
+    --pet-otis:#3E7C82;
+    --shadow: 0 1px 2px rgba(42,41,38,0.06), 0 10px 24px -10px rgba(42,41,38,0.22);
+    --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+    --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    --font-data: ui-monospace, "SF Mono", "Menlo", "Cascadia Mono", monospace;
+  }
+
+  *{ box-sizing:border-box; -webkit-font-smoothing:antialiased; }
+  html,body{ height:100%; margin:0; }
+  body{
+    font-family:var(--font-body);
+    background:
+      radial-gradient(circle at 50% -10%, var(--bg) 0%, var(--backdrop-deep) 100%);
+    display:flex; align-items:center; justify-content:center;
+    padding:40px 16px;
+    color:var(--ink);
+  }
+
+  .stage{ display:flex; flex-direction:column; align-items:center; gap:14px; }
+  .stage-caption{
+    font-family:var(--font-data);
+    font-size:12px; letter-spacing:.04em; color:var(--ink-faint);
+    text-transform:uppercase;
+  }
+
+  /* ---------- phone frame ---------- */
+  .phone{
+    width:390px; height:844px;
+    background:#111;
+    border-radius:58px;
+    padding:14px;
+    box-shadow: var(--shadow);
+    position:relative;
+  }
+  .screen{
+    width:100%; height:100%;
+    background:var(--bg);
+    border-radius:44px;
+    overflow:hidden;
+    display:flex; flex-direction:column;
+    position:relative;
+  }
+  .island{
+    position:absolute; top:14px; left:50%; transform:translateX(-50%);
+    width:120px; height:34px; background:#111; border-radius:20px; z-index:20;
+  }
+  .status-bar{
+    height:52px; flex:0 0 auto;
+    display:flex; align-items:flex-end; justify-content:space-between;
+    padding:0 26px 6px;
+    font-family:var(--font-data); font-size:14px; font-weight:600; color:var(--ink);
+  }
+  .status-bar .icons{ display:flex; gap:5px; align-items:center; }
+
+  /* ---------- header ---------- */
+  .app-header{ padding:2px 20px 12px; flex:0 0 auto; }
+  .date-row{ display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+  .date-row h1{
+    font-family:var(--font-display); font-size:22px; font-weight:700;
+    margin:0; letter-spacing:-0.01em;
+  }
+  .header-actions{ display:flex; gap:8px; }
+  .icon-btn{
+    width:38px; height:38px; border-radius:12px; border:none;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--paper); box-shadow:var(--shadow); cursor:pointer;
+  }
+  .icon-btn.sos{ background:var(--clinic-red); }
+  .icon-btn svg{ width:18px; height:18px; }
+
+  .pet-filter{ display:flex; gap:8px; }
+  .pill{
+    font-family:var(--font-body); font-size:13px; font-weight:600;
+    padding:7px 14px; border-radius:999px; border:1px solid var(--line);
+    background:transparent; color:var(--ink-soft); cursor:pointer;
+    display:flex; align-items:center; gap:6px;
+  }
+  .pill .dot{ width:7px; height:7px; border-radius:50%; }
+  .pill[data-pet="all"] .dot{ display:none; }
+  .pill[data-pet="bella"] .dot{ background:var(--pet-bella); }
+  .pill[data-pet="otis"] .dot{ background:var(--pet-otis); }
+  .pill.active{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+
+  /* ---------- scroll body ---------- */
+  .today-scroll{
+    flex:1 1 auto; overflow-y:auto; padding:6px 20px 28px;
+    display:flex; flex-direction:column; gap:22px;
+  }
+  .section-label{
+    font-family:var(--font-data); font-size:11px; font-weight:700;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint);
+    margin:0 0 10px 2px;
+  }
+  .section-label.overdue-label{ color:var(--clinic-red); }
+
+  /* ---------- dose card: "clipped chart" motif ---------- */
+  .dose-card{
+    position:relative;
+    background:var(--paper);
+    border-radius:18px;
+    padding:16px 16px 14px;
+    box-shadow:var(--shadow);
+    border-top:2px dashed var(--line);
+    transition:opacity .25s ease, transform .25s ease;
+  }
+  .dose-card + .dose-card{ margin-top:12px; }
+  .dose-card .clip{
+    position:absolute; top:-9px; left:18px; width:26px; height:18px;
+    transform:rotate(-9deg);
+  }
+  .dose-card.critical{ border-top-color:var(--clinic-red); background:linear-gradient(180deg, var(--clinic-red-soft), var(--paper) 60px); }
+  .dose-card.logged{ opacity:.55; transform:scale(.985); }
+
+  .dose-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+  .dose-name{ display:flex; align-items:center; gap:7px; }
+  .dose-name .pet-dot{ width:8px; height:8px; border-radius:50%; flex:0 0 auto; }
+  .dose-name span.pet{ font-weight:600; color:var(--ink-soft); font-size:14px; }
+  .dose-name strong{ font-family:var(--font-display); font-size:16px; font-weight:700; }
+  .status-chip{
+    font-family:var(--font-data); font-size:11px; font-weight:700;
+    color:#fff; background:var(--clinic-red); padding:3px 8px; border-radius:7px;
+    display:flex; align-items:center; gap:4px;
+  }
+
+  .dose-meta{
+    font-family:var(--font-data); font-size:13px; color:var(--ink-soft);
+    margin:8px 0 2px;
+  }
+  .dose-late{
+    font-family:var(--font-data); font-size:13px; font-weight:700; color:var(--clinic-red);
+    margin:2px 0 12px; display:flex; align-items:center; gap:5px;
+  }
+  .dose-food{
+    font-size:13px; color:var(--ink-soft); margin:8px 0 12px;
+    display:flex; align-items:center; gap:6px;
+  }
+
+  .dose-actions{ display:flex; gap:8px; }
+  .btn{
+    font-family:var(--font-body); font-size:13px; font-weight:700;
+    border:none; border-radius:11px; padding:9px 14px; cursor:pointer;
+    display:flex; align-items:center; gap:6px;
+  }
+  .btn.given{ background:var(--marigold); color:var(--ink); flex:1; justify-content:center; }
+  .btn.given:active{ transform:scale(.97); }
+  .btn.snooze{ background:transparent; border:1px solid var(--line); color:var(--ink-soft); }
+  .btn.more{ background:transparent; border:1px solid var(--line); color:var(--ink-soft); padding:9px 11px; }
+
+  .stamp{
+    position:absolute; top:10px; right:14px;
+    width:46px; height:46px; border-radius:50%;
+    border:2.5px solid var(--sage); color:var(--sage);
+    display:none; align-items:center; justify-content:center;
+    transform:rotate(-14deg) scale(.6); opacity:0;
+    font-family:var(--font-display); font-weight:800; font-size:10px;
+    letter-spacing:.06em; text-transform:uppercase;
+  }
+  .dose-card.logged .stamp{ display:flex; animation:stampIn .35s ease forwards; }
+  @keyframes stampIn{ to{ opacity:1; transform:rotate(-14deg) scale(1); } }
+
+  /* ---------- later list ---------- */
+  .later-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:0; }
+  .later-list li{
+    display:flex; align-items:center; gap:12px;
+    padding:11px 4px; border-bottom:1px solid var(--line);
+    font-size:14px;
+  }
+  .later-list li:last-child{ border-bottom:none; }
+  .later-time{ font-family:var(--font-data); font-size:13px; color:var(--ink-soft); width:64px; flex:0 0 auto; }
+  .later-pet-dot{ width:7px; height:7px; border-radius:50%; flex:0 0 auto; }
+  .later-list .med{ font-weight:600; }
+  .later-list .amt{ margin-left:auto; font-family:var(--font-data); font-size:13px; color:var(--ink-soft); }
+
+  /* ---------- done section ---------- */
+  .done-toggle{
+    width:100%; background:none; border:none; text-align:left; cursor:pointer;
+    display:flex; align-items:center; justify-content:space-between;
+    font-family:var(--font-data); font-size:12px; font-weight:700; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--ink-faint); padding:2px;
+  }
+  .done-toggle .chev{ transition:transform .2s ease; font-size:13px; }
+  .done-toggle.expanded .chev{ transform:rotate(180deg); }
+  .done-list{ list-style:none; margin:8px 0 0; padding:0; max-height:0; overflow:hidden; transition:max-height .25s ease; }
+  .done-list.expanded{ max-height:200px; }
+  .done-list li{ display:flex; align-items:center; gap:10px; padding:8px 4px; font-size:13px; color:var(--ink-soft); }
+  .done-list li .check{ width:16px; height:16px; color:var(--sage); flex:0 0 auto; }
+
+  /* ---------- alert card ---------- */
+  .alert-card{
+    display:flex; align-items:center; gap:12px;
+    background:var(--sage-soft); border-radius:16px; padding:13px 14px;
+  }
+  .alert-card svg{ flex:0 0 auto; color:var(--sage); }
+  .alert-card p{ margin:0; font-size:13px; flex:1; line-height:1.35; }
+  .alert-card .btn{ background:var(--ink); color:var(--paper); padding:8px 12px; }
+
+  /* ---------- tab bar ---------- */
+  .tab-bar{
+    flex:0 0 auto; display:flex; padding:8px 10px 22px;
+    background:rgba(250,246,236,.92); backdrop-filter:blur(6px);
+    border-top:1px solid var(--line);
+  }
+  .tab{
+    flex:1; display:flex; flex-direction:column; align-items:center; gap:4px;
+    background:none; border:none; cursor:pointer; color:var(--ink-faint); padding:4px 0;
+  }
+  .tab svg{ width:22px; height:22px; }
+  .tab span{ font-size:10px; font-weight:600; }
+  .tab.active{ color:var(--marigold-deep); }
+
+  button:focus-visible, .pill:focus-visible{
+    outline:2px solid var(--marigold-deep); outline-offset:2px;
+  }
+
+  /* ---------- toast ---------- */
+  .toast{
+    position:absolute; left:50%; bottom:110px; transform:translate(-50%, 12px);
+    background:var(--ink); color:var(--paper); font-size:13px; font-weight:600;
+    padding:11px 16px; border-radius:12px; display:flex; align-items:center; gap:12px;
+    opacity:0; pointer-events:none; transition:opacity .2s ease, transform .2s ease;
+    z-index:30; box-shadow:var(--shadow); white-space:nowrap;
+  }
+  .toast.show{ opacity:1; transform:translate(-50%, 0); pointer-events:auto; }
+  .toast button{ background:none; border:none; color:var(--marigold); font-weight:700; font-size:13px; cursor:pointer; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+
+  @media (max-width: 460px){
+    .phone{ transform:scale(0.86); }
+    .stage{ margin:-70px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="phone">
+    <div class="screen">
+      <div class="island"></div>
+      <div class="status-bar">
+        <span>9:41</span>
+        <span class="icons">
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><rect x="0" y="7" width="3" height="5" rx="0.5" fill="currentColor"/><rect x="4.5" y="4" width="3" height="8" rx="0.5" fill="currentColor"/><rect x="9" y="1" width="3" height="11" rx="0.5" fill="currentColor"/></svg>
+        </span>
+      </div>
+
+      <header class="app-header">
+        <div class="date-row">
+          <h1>Tuesday, August&nbsp;5</h1>
+          <div class="header-actions">
+            <button class="icon-btn sos" aria-label="Emergency">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6M12 16v6M4.9 4.9l4.2 4.2M14.9 14.9l4.2 4.2M2 12h6M16 12h6M4.9 19.1l4.2-4.2M14.9 9.1l4.2-4.2"/></svg>
+            </button>
+            <button class="icon-btn" aria-label="Add">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="pet-filter" role="tablist" aria-label="Filter by pet">
+          <button class="pill active" data-pet="all"><span class="dot"></span>All pets</button>
+          <button class="pill" data-pet="bella"><span class="dot"></span>Bella</button>
+          <button class="pill" data-pet="otis"><span class="dot"></span>Otis</button>
+        </div>
+      </header>
+
+      <main class="today-scroll">
+
+        <section class="dose-section" data-pet="bella">
+          <h2 class="section-label overdue-label">Overdue</h2>
+          <article class="dose-card critical" data-med="insulin">
+            <svg class="clip" viewBox="0 0 26 18" fill="none"><path d="M4 9c0-5 5-8 9-6s5 8 1 10-9-1-7-6c1.5-4 7-4 8 0" stroke="#8B8577" stroke-width="2" stroke-linecap="round"/></svg>
+            <div class="stamp">Given</div>
+            <div class="dose-top">
+              <div class="dose-name">
+                <span class="pet-dot" style="background:var(--pet-bella)"></span>
+                <span class="pet">Bella</span>
+                <strong>·&nbsp;Insulin</strong>
+              </div>
+              <span class="status-chip">
+                <svg width="9" height="9" viewBox="0 0 9 9"><circle cx="4.5" cy="4.5" r="4.5" fill="#fff"/></svg>
+                Overdue
+              </span>
+            </div>
+            <div class="dose-meta">2 units · SC · due 8:00 AM</div>
+            <div class="dose-late">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+              1h 20m late
+            </div>
+            <div class="dose-actions">
+              <button class="btn given" data-action="log">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L19 7"/></svg>
+                Given
+              </button>
+              <button class="btn snooze">Snooze</button>
+              <button class="btn more" aria-label="More options">⋯</button>
+            </div>
+          </article>
+        </section>
+
+        <section class="dose-section" data-pet="bella">
+          <h2 class="section-label">Now</h2>
+          <article class="dose-card" data-med="apoquel">
+            <svg class="clip" viewBox="0 0 26 18" fill="none"><path d="M4 9c0-5 5-8 9-6s5 8 1 10-9-1-7-6c1.5-4 7-4 8 0" stroke="#8B8577" stroke-width="2" stroke-linecap="round"/></svg>
+            <div class="stamp">Given</div>
+            <div class="dose-top">
+              <div class="dose-name">
+                <span class="pet-dot" style="background:var(--pet-bella)"></span>
+                <span class="pet">Bella</span>
+                <strong>·&nbsp;Apoquel</strong>
+              </div>
+            </div>
+            <div class="dose-meta">1 tablet</div>
+            <div class="dose-food">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ink-soft)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10c0-3 3.5-6 8-6s8 3 8 6"/><path d="M3 10h18l-1.4 8.5a2 2 0 0 1-2 1.5H6.4a2 2 0 0 1-2-1.5L3 10z"/></svg>
+              With food
+            </div>
+            <div class="dose-actions">
+              <button class="btn given" data-action="log">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L19 7"/></svg>
+                Given
+              </button>
+              <button class="btn snooze">Snooze</button>
+              <button class="btn more" aria-label="More options">⋯</button>
+            </div>
+          </article>
+        </section>
+
+        <section class="dose-section">
+          <h2 class="section-label">Later today</h2>
+          <ul class="later-list">
+            <li data-pet="otis">
+              <span class="later-time">6:00 PM</span>
+              <span class="later-pet-dot" style="background:var(--pet-otis)"></span>
+              <span class="med">Otis · Gabapentin</span>
+              <span class="amt">1 cap</span>
+            </li>
+            <li data-pet="bella">
+              <span class="later-time">8:00 PM</span>
+              <span class="later-pet-dot" style="background:var(--pet-bella)"></span>
+              <span class="med">Bella · Insulin</span>
+              <span class="amt">2 units</span>
+            </li>
+            <li data-pet="bella">
+              <span class="later-time">8:00 PM</span>
+              <span class="later-pet-dot" style="background:var(--pet-bella)"></span>
+              <span class="med">Bella · Apoquel</span>
+              <span class="amt">1 tablet</span>
+            </li>
+          </ul>
+        </section>
+
+        <section class="done-section">
+          <button class="done-toggle" id="doneToggle">
+            Done today (2)
+            <span class="chev">⌄</span>
+          </button>
+          <ul class="done-list" id="doneList">
+            <li>
+              <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L19 7"/></svg>
+              Otis · Heartgard — 7:30 AM
+            </li>
+            <li>
+              <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L19 7"/></svg>
+              Bella · Insulin — 8:02 AM
+            </li>
+          </ul>
+        </section>
+
+        <div class="alert-card">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 18a1.8 1.8 0 0 0 1.6 2.7h15.8a1.8 1.8 0 0 0 1.6-2.7L13.7 3.9a1.8 1.8 0 0 0-3.4 0z"/></svg>
+          <p>Otis's rabies cert expires in 12 days.</p>
+          <button class="btn">Renew</button>
+        </div>
+
+      </main>
+
+      <nav class="tab-bar">
+        <button class="tab active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="6"/><path d="M8 12l2.5 2.5L16 9"/></svg>
+          <span>Today</span>
+        </button>
+        <button class="tab">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><ellipse cx="12" cy="16" rx="5" ry="4"/><ellipse cx="6" cy="8" rx="2" ry="2.6"/><ellipse cx="18" cy="8" rx="2" ry="2.6"/><ellipse cx="9.5" cy="5.5" rx="1.8" ry="2.3"/><ellipse cx="14.5" cy="5.5" rx="1.8" ry="2.3"/></svg>
+          <span>Pets</span>
+        </button>
+        <button class="tab">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg>
+          <span>Records</span>
+        </button>
+        <button class="tab">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+          <span>Care</span>
+        </button>
+        <button class="tab">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>
+          <span>More</span>
+        </button>
+      </nav>
+
+      <div class="toast" id="toast">
+        <span id="toastText">Bella's Apoquel logged</span>
+        <button id="toastUndo">Undo</button>
+      </div>
+    </div>
+  </div>
+  <p class="stage-caption">FloofSync · Today</p>
+</div>
+
+<script>
+  // pet filter
+  document.querySelectorAll('.pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      const pet = pill.dataset.pet;
+      document.querySelectorAll('[data-pet]').forEach(el => {
+        if (el.classList.contains('pill')) return;
+        el.style.display = (pet === 'all' || el.dataset.pet === pet) ? '' : 'none';
+      });
+    });
+  });
+
+  // dose logging + undo toast
+  const toast = document.getElementById('toast');
+  const toastText = document.getElementById('toastText');
+  const toastUndo = document.getElementById('toastUndo');
+  let toastTimer = null;
+  let activeCard = null;
+
+  document.querySelectorAll('[data-action="log"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.dose-card');
+      card.classList.add('logged');
+      activeCard = card;
+      const name = card.querySelector('.dose-name strong').textContent.replace('·', '').trim();
+      const pet = card.querySelector('.pet').textContent;
+      toastText.textContent = `${pet}'s ${name} logged`;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 6000);
+    });
+  });
+
+  toastUndo.addEventListener('click', () => {
+    if (activeCard) activeCard.classList.remove('logged');
+    toastText.textContent = 'Undone';
+    clearTimeout(toastTimer);
+    setTimeout(() => toast.classList.remove('show'), 1400);
+  });
+
+  // done today disclosure
+  const doneToggle = document.getElementById('doneToggle');
+  const doneList = document.getElementById('doneList');
+  doneToggle.addEventListener('click', () => {
+    doneToggle.classList.toggle('expanded');
+    doneList.classList.toggle('expanded');
+  });
+</script>
+
+</body>
+</html>
