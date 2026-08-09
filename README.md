@@ -13,10 +13,16 @@ warnings ship with advisory wording, and the location feature is cut from v1.
 
 In `Packages/`: `ScheduleEngine` (pure dose-occurrence engine, 26-case test
 suite green), `DesignSystem` (brand tokens + formatters, tested), and
-`PetModel` (SwiftData models per the data-model spec — first compile happens
-in Xcode). Brand guide in `design/BRAND.md`; the Today mockup in
-`design/floofsync-today.html`. Remaining for Phase 1: the Xcode project
-shell and `AppEnvironment`/`DataActor` wiring.
+`PetModel` (SwiftData models per the data-model spec). Brand guide in
+`design/BRAND.md`; the Today mockup in `design/floofsync-today.html`.
+
+`FloofSync.xcodeproj` + `App/` is the runnable shell: open it in Xcode 16+,
+hit ⌘R, and you get pet CRUD, a fixed-times medication form with the live
+next-doses preview, and a working Today screen with one-tap dose logging —
+all computed by `ScheduleEngine` against the SwiftData store. The SwiftUI/
+SwiftData sources get their first compile on a Mac; report build errors back
+and they'll be fixed. Next: `ReminderKit` and the remaining schedule patterns
+in the form (Phase 2).
 
 ---
 

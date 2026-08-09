@@ -22,5 +22,12 @@
     "swiftmodule": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/SchemaV1~partial.swiftmodule",
     "swift-dependencies": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/SchemaV1.swiftdeps",
     "diagnostics": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/SchemaV1.dia"
+  },
+  "/home/user/jubilant-enigma/Packages/PetModel/Sources/PetModel/SpecCoding.swift": {
+    "dependencies": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/SpecCoding.d",
+    "object": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/SpecCoding.swift.o",
+    "swiftmodule": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/SpecCoding~partial.swiftmodule",
+    "swift-dependencies": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/SpecCoding.swiftdeps",
+    "diagnostics": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/SpecCoding.dia"
   }
 }
