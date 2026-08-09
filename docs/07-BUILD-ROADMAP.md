@@ -40,7 +40,7 @@ early — this reserves the name for 180 days. Do the trademark check first
 | Decision | Resolution | Notes |
 |---|---|---|
 | App name | **FloofSync** | Owner's choice. Trademark (USPTO TESS) + App Store availability check still due before listing |
-| Bundle ID | **`com.floofsync.app`** (provisional) | Must be a reverse-DNS the owner controls — register the matching domain, or swap the prefix before first submission. Permanent after first submission |
+| Bundle ID | **`com.floofsync.app`** (confirmed) | floofsync.com is registered and owner-controlled. Permanent after first submission |
 | Toxicity warnings | **Ship** | Advisory wording only; lawyer reviews exact strings before submission (`00-OVERVIEW.md` §5) |
 | Monetization | **Free + one-time "FloofSync Pro" IAP (~$14.99)** | Free tier = 1 pet, unlimited meds (`00-OVERVIEW.md` §8) |
 | Location feature | **Cut from v1** | Saves a permission prompt + privacy-label entry; revisit Phase 5 |

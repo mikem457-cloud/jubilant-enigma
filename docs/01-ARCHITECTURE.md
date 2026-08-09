@@ -56,7 +56,7 @@ FloofSync/
 App  →  everything
 ReportKit, ExportKit, ReminderKit, RecordsKit  →  PetModel, ScheduleEngine, DesignSystem
 ScheduleEngine  →  (nothing — not even PetModel)
-PetModel  →  (nothing)
+PetModel  →  ScheduleEngine (value types only: DoseSchedule, DateOnly, TimeOfDay…)
 DesignSystem  →  (nothing)
 ```
 

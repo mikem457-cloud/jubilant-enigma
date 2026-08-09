@@ -5,12 +5,18 @@ Technical specification and build for a native iOS app.
 **Stack:** Swift 6 / SwiftUI / SwiftData · iOS 17+ · local-only, no backend, no
 network code, zero third-party dependencies.
 
-**Status:** Phase 1 in progress. Phase-0 decisions are resolved (see the table in
-`docs/07-BUILD-ROADMAP.md`): the app is **FloofSync**, free with a one-time
-"FloofSync Pro" IAP, toxicity warnings ship with advisory wording, and the
-location feature is cut from v1. `ScheduleEngine` — the pure dose-scheduling
-package — lives in `Packages/ScheduleEngine` with its test suite. A design
-mockup of the Today screen is in `design/floofsync-today.html`.
+**Status:** Phase 1 nearly complete. All eight spec documents are written.
+Phase-0 decisions are resolved (see the table in `docs/07-BUILD-ROADMAP.md`):
+the app is **FloofSync** (floofsync.com registered, bundle ID
+`com.floofsync.app`), free with a one-time "FloofSync Pro" IAP, toxicity
+warnings ship with advisory wording, and the location feature is cut from v1.
+
+In `Packages/`: `ScheduleEngine` (pure dose-occurrence engine, 26-case test
+suite green), `DesignSystem` (brand tokens + formatters, tested), and
+`PetModel` (SwiftData models per the data-model spec — first compile happens
+in Xcode). Brand guide in `design/BRAND.md`; the Today mockup in
+`design/floofsync-today.html`. Remaining for Phase 1: the Xcode project
+shell and `AppEnvironment`/`DataActor` wiring.
 
 ---
 

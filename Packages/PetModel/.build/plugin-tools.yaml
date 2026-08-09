@@ -1,0 +1,80 @@
+client:
+  name: basic
+  file-system: device-agnostic
+tools: {}
+targets:
+  "PackageStructure": ["<PackageStructure>"]
+  "PetModel-x86_64-unknown-linux-gnu-debug.module": ["<PetModel-x86_64-unknown-linux-gnu-debug.module>"]
+  "ScheduleEngine-x86_64-unknown-linux-gnu-debug.module": ["<ScheduleEngine-x86_64-unknown-linux-gnu-debug.module>"]
+  "main": ["<PetModel-x86_64-unknown-linux-gnu-debug.module>"]
+  "test": ["<PetModel-x86_64-unknown-linux-gnu-debug.module>"]
+default: "main"
+nodes:
+  "/home/user/jubilant-enigma/Packages/PetModel/Sources/PetModel/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+commands:
+  "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/PetModel.swiftmodule.o":
+    tool: shell
+    inputs: ["/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/Modules/PetModel.swiftmodule"]
+    outputs: ["/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/PetModel.swiftmodule.o"]
+    description: "Wrapping AST for PetModel for debugging"
+    args: ["/opt/swift-root/usr/bin/swiftc","-modulewrap","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/Modules/PetModel.swiftmodule","-o","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/PetModel.swiftmodule.o","-target","x86_64-unknown-linux-gnu"]
+
+  "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/home/user/jubilant-enigma/Packages/PetModel/Sources/PetModel/Enums.swift","/home/user/jubilant-enigma/Packages/PetModel/Sources/PetModel/Models.swift","/home/user/jubilant-enigma/Packages/PetModel/Sources/PetModel/SchemaV1.swift"]
+    outputs: ["/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/sources"]
+    description: "Write auxiliary file /home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/sources"
+
+  "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/ScheduleEngine.swiftmodule.o":
+    tool: shell
+    inputs: ["/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/Modules/ScheduleEngine.swiftmodule"]
+    outputs: ["/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/ScheduleEngine.swiftmodule.o"]
+    description: "Wrapping AST for ScheduleEngine for debugging"
+    args: ["/opt/swift-root/usr/bin/swiftc","-modulewrap","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/Modules/ScheduleEngine.swiftmodule","-o","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/ScheduleEngine.swiftmodule.o","-target","x86_64-unknown-linux-gnu"]
+
+  "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/Clock.swift","/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/DoseSchedule.swift","/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/Occurrences.swift","/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/Types.swift"]
+    outputs: ["/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/sources"]
+    description: "Write auxiliary file /home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/sources"
+
+  "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/swift-version-1F6F182A228EA79D.txt":
+    tool: write-auxiliary-file
+    inputs: ["<swift-get-version>","/opt/swift-root/usr/bin/swiftc"]
+    outputs: ["/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/swift-version-1F6F182A228EA79D.txt"]
+    always-out-of-date: "true"
+    description: "Write auxiliary file /home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/swift-version-1F6F182A228EA79D.txt"
+
+  "<PetModel-x86_64-unknown-linux-gnu-debug.module>":
+    tool: phony
+    inputs: ["/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/Enums.swift.o","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/Models.swift.o","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/SchemaV1.swift.o","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/Modules/PetModel.swiftmodule"]
+    outputs: ["<PetModel-x86_64-unknown-linux-gnu-debug.module>"]
+
+  "<ScheduleEngine-x86_64-unknown-linux-gnu-debug.module>":
+    tool: phony
+    inputs: ["/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Clock.swift.o","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/DoseSchedule.swift.o","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Occurrences.swift.o","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Types.swift.o","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/Modules/ScheduleEngine.swiftmodule"]
+    outputs: ["<ScheduleEngine-x86_64-unknown-linux-gnu-debug.module>"]
+
+  "C.PetModel-x86_64-unknown-linux-gnu-debug.module":
+    tool: shell
+    inputs: ["/home/user/jubilant-enigma/Packages/PetModel/Sources/PetModel/Enums.swift","/home/user/jubilant-enigma/Packages/PetModel/Sources/PetModel/Models.swift","/home/user/jubilant-enigma/Packages/PetModel/Sources/PetModel/SchemaV1.swift","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/swift-version-1F6F182A228EA79D.txt","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/Modules/ScheduleEngine.swiftmodule","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/sources"]
+    outputs: ["/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/Enums.swift.o","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/Models.swift.o","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/SchemaV1.swift.o","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/Modules/PetModel.swiftmodule"]
+    description: "Compiling Swift Module 'PetModel' (3 sources)"
+    args: ["/opt/swift-root/usr/bin/swiftc","-module-name","PetModel","-emit-dependencies","-emit-module","-emit-module-path","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/Modules/PetModel.swiftmodule","-output-file-map","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/output-file-map.json","-parse-as-library","-incremental","-c","@/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/sources","-I","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/Modules","-target","x86_64-unknown-linux-gnu","-incremental","-enable-batch-mode","-serialize-diagnostics","-index-store-path","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/index/store","-Onone","-enable-testing","-j4","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/include/PetModel-Swift.h","-swift-version","6","-g","-Xcc","-fPIC","-Xcc","-g","-package-name","petmodel","-Xcc","-fno-omit-frame-pointer"]
+
+  "C.ScheduleEngine-x86_64-unknown-linux-gnu-debug.module":
+    tool: shell
+    inputs: ["/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/Clock.swift","/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/DoseSchedule.swift","/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/Occurrences.swift","/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/Types.swift","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/swift-version-1F6F182A228EA79D.txt","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/sources"]
+    outputs: ["/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Clock.swift.o","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/DoseSchedule.swift.o","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Occurrences.swift.o","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Types.swift.o","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/Modules/ScheduleEngine.swiftmodule"]
+    description: "Compiling Swift Module 'ScheduleEngine' (4 sources)"
+    args: ["/opt/swift-root/usr/bin/swiftc","-module-name","ScheduleEngine","-emit-dependencies","-emit-module","-emit-module-path","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/Modules/ScheduleEngine.swiftmodule","-output-file-map","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/output-file-map.json","-parse-as-library","-incremental","-c","@/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/sources","-I","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/Modules","-target","x86_64-unknown-linux-gnu","-incremental","-enable-batch-mode","-serialize-diagnostics","-index-store-path","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/index/store","-Onone","-enable-testing","-j4","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/include/ScheduleEngine-Swift.h","-swift-version","6","-g","-Xcc","-fPIC","-Xcc","-g","-package-name","scheduleengine","-Xcc","-fno-omit-frame-pointer"]
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/home/user/jubilant-enigma/Packages/PetModel/Sources/PetModel/","/home/user/jubilant-enigma/Packages/PetModel/Package.swift","/home/user/jubilant-enigma/Packages/PetModel/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+

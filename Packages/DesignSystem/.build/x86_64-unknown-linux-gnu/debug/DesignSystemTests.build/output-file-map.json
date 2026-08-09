@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemTests.build/primary.swiftdeps"
+  },
+  "/home/user/jubilant-enigma/Packages/DesignSystem/Tests/DesignSystemTests/FormatterTests.swift": {
+    "dependencies": "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemTests.build/FormatterTests.d",
+    "object": "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemTests.build/FormatterTests.swift.o",
+    "swiftmodule": "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemTests.build/FormatterTests~partial.swiftmodule",
+    "swift-dependencies": "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemTests.build/FormatterTests.swiftdeps",
+    "diagnostics": "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemTests.build/FormatterTests.dia"
+  }
+}

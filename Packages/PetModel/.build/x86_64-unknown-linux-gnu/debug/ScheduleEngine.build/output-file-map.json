@@ -1,0 +1,33 @@
+{
+  "": {
+    "swift-dependencies": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/primary.swiftdeps"
+  },
+  "/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/Clock.swift": {
+    "dependencies": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Clock.d",
+    "object": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Clock.swift.o",
+    "swiftmodule": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Clock~partial.swiftmodule",
+    "swift-dependencies": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Clock.swiftdeps",
+    "diagnostics": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Clock.dia"
+  },
+  "/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/DoseSchedule.swift": {
+    "dependencies": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/DoseSchedule.d",
+    "object": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/DoseSchedule.swift.o",
+    "swiftmodule": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/DoseSchedule~partial.swiftmodule",
+    "swift-dependencies": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/DoseSchedule.swiftdeps",
+    "diagnostics": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/DoseSchedule.dia"
+  },
+  "/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/Occurrences.swift": {
+    "dependencies": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Occurrences.d",
+    "object": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Occurrences.swift.o",
+    "swiftmodule": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Occurrences~partial.swiftmodule",
+    "swift-dependencies": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Occurrences.swiftdeps",
+    "diagnostics": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Occurrences.dia"
+  },
+  "/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/Types.swift": {
+    "dependencies": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Types.d",
+    "object": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Types.swift.o",
+    "swiftmodule": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Types~partial.swiftmodule",
+    "swift-dependencies": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Types.swiftdeps",
+    "diagnostics": "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Types.dia"
+  }
+}

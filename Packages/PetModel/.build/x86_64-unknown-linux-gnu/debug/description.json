@@ -1,0 +1,406 @@
+{
+  "builtTestProducts" : [
+
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.PetModel-x86_64-unknown-linux-gnu-debug.module" : {
+      "executable" : "/opt/swift-root/usr/bin/swiftc",
+      "fileList" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/sources",
+      "importPath" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/PetModel/Sources/PetModel/Enums.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/PetModel/Sources/PetModel/Models.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/PetModel/Sources/PetModel/SchemaV1.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/swift-version-1F6F182A228EA79D.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/Modules/ScheduleEngine.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "PetModel",
+      "moduleOutputPath" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/Modules/PetModel.swiftmodule",
+      "objects" : [
+        "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/Enums.swift.o",
+        "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/Models.swift.o",
+        "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/SchemaV1.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "x86_64-unknown-linux-gnu",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j4",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/include/PetModel-Swift.h",
+        "-swift-version",
+        "6",
+        "-g",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "petmodel",
+        "-Xcc",
+        "-fno-omit-frame-pointer"
+      ],
+      "outputFileMapPath" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/Enums.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/Models.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/SchemaV1.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/Modules/PetModel.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/home/user/jubilant-enigma/Packages/PetModel/Sources/PetModel/Enums.swift",
+        "/home/user/jubilant-enigma/Packages/PetModel/Sources/PetModel/Models.swift",
+        "/home/user/jubilant-enigma/Packages/PetModel/Sources/PetModel/SchemaV1.swift"
+      ],
+      "tempsPath" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.ScheduleEngine-x86_64-unknown-linux-gnu-debug.module" : {
+      "executable" : "/opt/swift-root/usr/bin/swiftc",
+      "fileList" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/sources",
+      "importPath" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/Clock.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/DoseSchedule.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/Occurrences.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/Types.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/swift-version-1F6F182A228EA79D.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "ScheduleEngine",
+      "moduleOutputPath" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/Modules/ScheduleEngine.swiftmodule",
+      "objects" : [
+        "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Clock.swift.o",
+        "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/DoseSchedule.swift.o",
+        "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Occurrences.swift.o",
+        "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Types.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "x86_64-unknown-linux-gnu",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j4",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/include/ScheduleEngine-Swift.h",
+        "-swift-version",
+        "6",
+        "-g",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "scheduleengine",
+        "-Xcc",
+        "-fno-omit-frame-pointer"
+      ],
+      "outputFileMapPath" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Clock.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/DoseSchedule.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Occurrences.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/Types.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/Modules/ScheduleEngine.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/Clock.swift",
+        "/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/DoseSchedule.swift",
+        "/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/Occurrences.swift",
+        "/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/Types.swift"
+      ],
+      "tempsPath" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "PetModel" : [
+      "/opt/swift-root/usr/bin/swiftc",
+      "-module-name",
+      "PetModel",
+      "-package-name",
+      "petmodel",
+      "-c",
+      "/home/user/jubilant-enigma/Packages/PetModel/Sources/PetModel/Enums.swift",
+      "/home/user/jubilant-enigma/Packages/PetModel/Sources/PetModel/Models.swift",
+      "/home/user/jubilant-enigma/Packages/PetModel/Sources/PetModel/SchemaV1.swift",
+      "-I",
+      "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "-target",
+      "x86_64-unknown-linux-gnu",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j4",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/include/PetModel-Swift.h",
+      "-swift-version",
+      "6",
+      "-g",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "petmodel",
+      "-Xcc",
+      "-fno-omit-frame-pointer",
+      "-driver-use-frontend-path",
+      "/opt/swift-root/usr/bin/swiftc"
+    ],
+    "ScheduleEngine" : [
+      "/opt/swift-root/usr/bin/swiftc",
+      "-module-name",
+      "ScheduleEngine",
+      "-package-name",
+      "scheduleengine",
+      "-c",
+      "/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/Clock.swift",
+      "/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/DoseSchedule.swift",
+      "/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/Occurrences.swift",
+      "/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/Types.swift",
+      "-I",
+      "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "-target",
+      "x86_64-unknown-linux-gnu",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j4",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/include/ScheduleEngine-Swift.h",
+      "-swift-version",
+      "6",
+      "-g",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "scheduleengine",
+      "-Xcc",
+      "-fno-omit-frame-pointer",
+      "-driver-use-frontend-path",
+      "/opt/swift-root/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "PetModel" : [
+      "ScheduleEngine"
+    ],
+    "ScheduleEngine" : [
+
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+
+  },
+  "traitConfiguration" : {
+    "default" : {
+
+    }
+  },
+  "writeCommands" : {
+    "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/PetModel/Sources/PetModel/Enums.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/PetModel/Sources/PetModel/Models.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/PetModel/Sources/PetModel/SchemaV1.swift"
+        }
+      ],
+      "outputFilePath" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/PetModel.build/sources"
+    },
+    "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/Clock.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/DoseSchedule.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/Occurrences.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/home/user/jubilant-enigma/Packages/ScheduleEngine/Sources/ScheduleEngine/Types.swift"
+        }
+      ],
+      "outputFilePath" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngine.build/sources"
+    },
+    "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/swift-version-1F6F182A228EA79D.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/opt/swift-root/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/home/user/jubilant-enigma/Packages/PetModel/.build/x86_64-unknown-linux-gnu/debug/swift-version-1F6F182A228EA79D.txt"
+    }
+  }
+}
