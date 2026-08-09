@@ -1,0 +1,11 @@
+{
+  "name": "frontend-design",
+  "displayName": "Frontend Design",
+  "version": "1.0.0",
+  "description": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one.",
+  "author": {
+    "name": "Anthropic"
+  },
+  "license": "See LICENSE.txt",
+  "keywords": ["frontend", "design", "ui", "css", "typography"]
+}

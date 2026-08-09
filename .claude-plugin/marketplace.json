@@ -1,0 +1,14 @@
+{
+  "name": "jubilant-enigma",
+  "description": "Claude Code plugins maintained in this repository.",
+  "owner": {
+    "name": "mikem457"
+  },
+  "plugins": [
+    {
+      "name": "frontend-design",
+      "source": "./plugins/frontend-design",
+      "description": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one."
+    }
+  ]
+}
