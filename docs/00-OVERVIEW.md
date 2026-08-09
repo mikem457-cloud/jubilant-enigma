@@ -1,9 +1,9 @@
-# PawChart — Product Overview
+# FloofSync — Product Overview
 
-> **Working name.** `PawChart` is a placeholder. Before you file for an App Store
-> listing, run a USPTO TESS search and an App Store name search. Alternates that
-> read well and are unlikely to collide: **Petfolio**, **Wellpaw**, **Chartpaw**.
-> Name is a Phase-0 blocking decision (see `07-BUILD-ROADMAP.md`).
+> **Name: decided.** The app is **FloofSync**. Before filing the App Store listing,
+> still run a USPTO TESS search and an App Store name search to confirm the name is
+> clear, and reserve it in App Store Connect (180-day hold) as soon as the developer
+> account is active.
 
 ---
 
@@ -86,7 +86,7 @@ less regulated), but the liability posture still matters and shapes the design.
   is no mg/kg calculator that outputs a recommendation.
 - The weight-change feature says *"Bella's weight has changed 18% since this dose was
   set — you may want to confirm it with your vet."* It does not suggest a new dose.
-- First-run disclaimer, plus a persistent line in Settings → About: *"PawChart is a
+- First-run disclaimer, plus a persistent line in Settings → About: *"FloofSync is a
   record-keeping and reminder tool. It is not veterinary advice. Always follow your
   veterinarian's instructions."*
 - **Species toxicity warnings** — a bundled static list of well-established
@@ -172,7 +172,7 @@ queue inspector; app lock (Face ID); themes and unit systems.
 **→ Decision needed before Phase 1 ends** (it affects data model and paywall
 placement, so it can't be deferred indefinitely).
 
-My recommendation: **free with one non-consumable IAP, "PawChart Pro," around
+My recommendation: **free with one non-consumable IAP, "FloofSync Pro," around
 $14.99.** Free tier covers one pet with unlimited medications and reminders — a
 genuinely complete app for the primary user. Pro unlocks multiple pets, the document
 vault and OCR, generated reports (vet, sitter, lost poster), widgets, Shortcuts, and

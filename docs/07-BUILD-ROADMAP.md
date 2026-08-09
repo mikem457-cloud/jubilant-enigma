@@ -35,15 +35,15 @@ possible but annoying.
 early — this reserves the name for 180 days. Do the trademark check first
 (`00-OVERVIEW.md` header).
 
-**Blocking decisions I need from you before Phase 1 code:**
+**Phase-0 blocking decisions — resolved 2026-08-09:**
 
-| Decision | Options | My recommendation |
+| Decision | Resolution | Notes |
 |---|---|---|
-| App name | PawChart / Petfolio / Wellpaw / yours | Check availability, then tell me |
-| Bundle ID | `com.<yourdomain>.pawchart` | Needs your domain or a reverse-DNS you control — permanent, cannot be changed after first submission |
-| Toxicity warnings | ship / cut | Ship, with lawyer-reviewed wording (`00-OVERVIEW.md` §5) |
-| Monetization | free / one-time Pro IAP / subscription | One-time Pro IAP (`00-OVERVIEW.md` §8) |
-| Location feature | ship / cut from v1 | Cut — costs a permission prompt to save one address field |
+| App name | **FloofSync** | Owner's choice. Trademark (USPTO TESS) + App Store availability check still due before listing |
+| Bundle ID | **`com.floofsync.app`** (provisional) | Must be a reverse-DNS the owner controls — register the matching domain, or swap the prefix before first submission. Permanent after first submission |
+| Toxicity warnings | **Ship** | Advisory wording only; lawyer reviews exact strings before submission (`00-OVERVIEW.md` §5) |
+| Monetization | **Free + one-time "FloofSync Pro" IAP (~$14.99)** | Free tier = 1 pet, unlimited meds (`00-OVERVIEW.md` §8) |
+| Location feature | **Cut from v1** | Saves a permission prompt + privacy-label entry; revisit Phase 5 |
 
 ---
 
@@ -136,7 +136,7 @@ tracking with photo timelines, additional languages.
 Ordered by how likely each is to bite this specific app.
 
 1. **Guideline 5.1.1 — permission purpose strings.** Every usage string must state a
-   concrete user benefit. "Camera access needed" is rejected; "PawChart uses the
+   concrete user benefit. "Camera access needed" is rejected; "FloofSync uses the
    camera to scan vet records and take photos of your pets" is not.
 2. **Guideline 2.1 — incomplete information.** Provide a demo account or, here, a
    pre-populated demo pet, and clear review notes. Reviewers who can't figure out

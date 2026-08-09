@@ -26,10 +26,10 @@ The payoff is compile-time enforcement of layering and fast unit tests on the en
 without building the whole app.
 
 ```
-PawChart/
-├─ PawChart.xcodeproj
+FloofSync/
+├─ FloofSync.xcodeproj
 ├─ App/                          # thin — app entry, root nav, DI wiring
-│   ├─ PawChartApp.swift
+│   ├─ FloofSyncApp.swift
 │   ├─ RootView.swift
 │   ├─ AppEnvironment.swift      # dependency container
 │   └─ Resources/                # Assets.xcassets, Localizable.xcstrings, seed JSON
@@ -47,7 +47,7 @@ PawChart/
     ├─ ScheduleEngineTests/      # the big one
     ├─ ReminderKitTests/
     ├─ ExportKitTests/           # round-trip property tests
-    └─ PawChartUITests/
+    └─ FloofSyncUITests/
 ```
 
 **Dependency rule, enforced by package manifests:**

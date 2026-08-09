@@ -1,12 +1,16 @@
-# PawChart — Pet Health & Medication Manager
+# FloofSync — Pet Health & Medication Manager
 
-Technical specification and build plan for a native iOS app.
+Technical specification and build for a native iOS app.
 
 **Stack:** Swift 6 / SwiftUI / SwiftData · iOS 17+ · local-only, no backend, no
 network code, zero third-party dependencies.
 
-**Status:** Architecture and plan. No code written yet — awaiting the Phase-0
-decisions in `docs/07-BUILD-ROADMAP.md`.
+**Status:** Phase 1 in progress. Phase-0 decisions are resolved (see the table in
+`docs/07-BUILD-ROADMAP.md`): the app is **FloofSync**, free with a one-time
+"FloofSync Pro" IAP, toxicity warnings ship with advisory wording, and the
+location feature is cut from v1. `ScheduleEngine` — the pure dose-scheduling
+package — lives in `Packages/ScheduleEngine` with its test suite. A design
+mockup of the Today screen is in `design/floofsync-today.html`.
 
 ---
 
@@ -20,7 +24,7 @@ decisions in `docs/07-BUILD-ROADMAP.md`.
 | 03 | [Notifications](docs/03-NOTIFICATIONS.md) | The 64-notification cap and how the app survives it: repeating triggers, grouping, rolling horizon with priority culling, delivery-time verification, DST correctness, the inspector |
 | 04 | [Screens](docs/04-SCREENS.md) | Navigation shell, Today, pet hub, the medication and taper flows, records, care, emergency, lost-pet kit, widgets and Shortcuts, onboarding |
 | 05 | [Settings](docs/05-SETTINGS.md) | The full settings tree, custom fields, App Intents and URL scheme, schedule simulator, diagnostics, and a defaults reference |
-| 06 | [Records, Reports, Export](docs/06-RECORDS-REPORTS-EXPORT.md) | On-device scan/OCR/extraction pipeline, six generated PDF reports, the `.pawchart` backup format and its round-trip guarantee |
+| 06 | [Records, Reports, Export](docs/06-RECORDS-REPORTS-EXPORT.md) | On-device scan/OCR/extraction pipeline, six generated PDF reports, the `.floofsync` backup format and its round-trip guarantee |
 | 07 | [Build Roadmap](docs/07-BUILD-ROADMAP.md) | Phase 0 setup steps, six build phases, App Store review pitfalls, testing strategy, risk register |
 
 Suggested reading order: 00 → 07 (to see the shape and what I need from you) → 03
@@ -51,19 +55,21 @@ each other's app.
 
 ---
 
-## Open decisions
+## Decisions (resolved 2026-08-09)
 
-Listed in full with recommendations in `docs/07-BUILD-ROADMAP.md`:
+Recorded in full in `docs/07-BUILD-ROADMAP.md`:
 
-- App name (trademark + App Store availability check)
-- Bundle identifier — permanent, needs a reverse-DNS you control
-- Species toxicity warnings: ship or cut
-- Monetization model
-- Location feature: ship or cut from v1
+- **App name: FloofSync** — trademark + App Store availability check still due
+  before the listing is filed
+- **Bundle identifier: `com.floofsync.app`** (provisional — must be a reverse-DNS
+  the owner controls before first submission)
+- **Species toxicity warnings: ship**, advisory wording, legal review of strings
+- **Monetization: free + one-time "FloofSync Pro" IAP** (~$14.99)
+- **Location feature: cut from v1**
 
-## Next step
+## Next steps
 
-Install Xcode, start Apple Developer Program enrolment (24–48h lead time), and
-answer the five decisions. Then Phase 1 begins with `ScheduleEngine` and its test
-suite — the part that has to be right, and the part you can verify before there's a
-UI.
+On the owner's side: install Xcode and start Apple Developer Program enrolment
+(24–48h lead time), then reserve the FloofSync name in App Store Connect.
+On the code side: Phase 1 is underway — `ScheduleEngine` and its test suite live
+in `Packages/`, and the remaining spec documents (04–06) are being written.
