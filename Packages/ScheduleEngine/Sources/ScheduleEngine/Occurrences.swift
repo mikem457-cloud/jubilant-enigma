@@ -171,44 +171,78 @@ public enum ScheduleEngine {
         return nil
     }
 
-    // MARK: - Calendar-day patterns (fixedTimes / everyNDays / cyclic)
+    // MARK: - Day-based patterns (fixedTimes / everyNDays / cyclic / taper)
 
-    /// Walks calendar days from the anchor day, asking `includeDay(dayIndex,
-    /// calendarWeekday)` for each, emitting each listed time. Day stepping uses
+    private struct DayPayload {
+        let times: [TimeOfDay]   // pre-sorted by the caller
+        let amount: DoseAmount
+        let label: String?
+    }
+
+    /// Walks calendar days from the anchor day; `payload(dayIndex, weekday)`
+    /// returns what to emit that day (nil = off day). Day stepping uses
     /// `Calendar.date(byAdding: .day)` — never `+86400` — so 23- and 25-hour
     /// DST days count as exactly one day.
-    private static func calendarPattern(
+    ///
+    /// Skip-ahead: days wholly before the query window can't emit occurrences,
+    /// and when there is no dose cap their contribution to `sequence` is
+    /// countable without calendar math — the weekday advances by exactly one
+    /// per calendar day regardless of DST. Day 0 is counted precisely (times
+    /// before the anchor instant aren't part of the series). This keeps a
+    /// years-old open-ended schedule O(window), not O(age).
+    private static func dayPattern(
         spec: ScheduleSpec,
-        times: [TimeOfDay],
-        amount: DoseAmount,
         from windowStart: Date,
         to windowEnd: Date,
         calendar cal: Calendar,
-        includeDay: (Int, Int) -> Bool
+        maxDays: Int,
+        payload: (_ dayIndex: Int, _ calendarWeekday: Int) -> DayPayload?
     ) -> [DoseOccurrence] {
-        guard !times.isEmpty else { return [] }
-        let sortedTimes = times.sorted()
         let anchorDay = cal.startOfDay(for: spec.anchor)
         let totalCap = totalDoseCap(spec.endPolicy)
+        let anchorWeekday = cal.component(.weekday, from: anchorDay)
+        func weekdayAt(_ dayIndex: Int) -> Int { (anchorWeekday - 1 + dayIndex) % 7 + 1 }
+
+        var sequence = 0
+        var firstDay = 0
+
+        if totalCap == nil {
+            let windowDayStart = cal.startOfDay(for: windowStart)
+            let skipDays = min(cal.dateComponents([.day], from: anchorDay, to: windowDayStart).day ?? 0,
+                               maxDays)
+            if skipDays > 0 {
+                if let p = payload(0, anchorWeekday) {
+                    for t in p.times {
+                        if let at = instant(of: t, onDayStarting: anchorDay, calendar: cal),
+                           at >= spec.anchor {
+                            sequence += 1
+                        }
+                    }
+                }
+                for dayIndex in 1..<skipDays {
+                    if let p = payload(dayIndex, weekdayAt(dayIndex)) {
+                        sequence += p.times.count
+                    }
+                }
+                firstDay = skipDays
+            }
+        }
 
         var result: [DoseOccurrence] = []
-        var sequence = 0
-        for dayIndex in 0..<maxDaySpan {
+        for dayIndex in firstDay..<maxDays {
             guard let dayStart = cal.date(byAdding: .day, value: dayIndex, to: anchorDay) else { break }
             if dayStart >= windowEnd { break }
             if let cap = totalCap, sequence >= cap { break }
+            guard let p = payload(dayIndex, weekdayAt(dayIndex)) else { continue }
 
-            let weekday = cal.component(.weekday, from: dayStart)
-            guard includeDay(dayIndex, weekday) else { continue }
-
-            for t in sortedTimes {
+            for t in p.times {
                 guard let at = instant(of: t, onDayStarting: dayStart, calendar: cal) else { continue }
                 if at < spec.anchor { continue }        // regimen hasn't started yet
                 if let cap = totalCap, sequence >= cap { break }
                 if at >= windowStart && at < windowEnd {
                     result.append(DoseOccurrence(
                         medicationID: spec.medicationID, scheduledAt: at,
-                        sequenceIndex: sequence, amount: amount, stageLabel: nil))
+                        sequenceIndex: sequence, amount: p.amount, stageLabel: p.label))
                 }
                 sequence += 1
             }
@@ -216,7 +250,22 @@ public enum ScheduleEngine {
         return result
     }
 
-    // MARK: - Taper
+    private static func calendarPattern(
+        spec: ScheduleSpec,
+        times: [TimeOfDay],
+        amount: DoseAmount,
+        from windowStart: Date,
+        to windowEnd: Date,
+        calendar cal: Calendar,
+        includeDay: @escaping (Int, Int) -> Bool
+    ) -> [DoseOccurrence] {
+        guard !times.isEmpty else { return [] }
+        let p = DayPayload(times: times.sorted(), amount: amount, label: nil)
+        return dayPattern(spec: spec, from: windowStart, to: windowEnd,
+                          calendar: cal, maxDays: maxDaySpan) { dayIndex, weekday in
+            includeDay(dayIndex, weekday) ? p : nil
+        }
+    }
 
     private static func taperOccurrences(
         spec: ScheduleSpec,
@@ -226,10 +275,8 @@ public enum ScheduleEngine {
         calendar cal: Calendar
     ) -> [DoseOccurrence] {
         guard !stages.isEmpty else { return [] }
-        let anchorDay = cal.startOfDay(for: spec.anchor)
-        let totalCap = totalDoseCap(spec.endPolicy)
 
-        // Precompute each stage's first day index.
+        // Precompute each stage's first day index and payload.
         var stageStartDay: [Int] = []
         var running = 0
         for stage in stages {
@@ -238,32 +285,15 @@ public enum ScheduleEngine {
         }
         let lastStageIsOpen = stages.last?.durationDays == nil
         let totalDays = lastStageIsOpen ? maxDaySpan : min(running, maxDaySpan)
-
-        var result: [DoseOccurrence] = []
-        var sequence = 0
-        for dayIndex in 0..<totalDays {
-            guard let dayStart = cal.date(byAdding: .day, value: dayIndex, to: anchorDay) else { break }
-            if dayStart >= windowEnd { break }
-            if let cap = totalCap, sequence >= cap { break }
-
-            // Which stage owns this day?
-            guard let stageIdx = stageStartDay.lastIndex(where: { $0 <= dayIndex }) else { continue }
-            let stage = stages[stageIdx]
-
-            for t in stage.times.sorted() {
-                guard let at = instant(of: t, onDayStarting: dayStart, calendar: cal) else { continue }
-                if at < spec.anchor { continue }
-                if let cap = totalCap, sequence >= cap { break }
-                if at >= windowStart && at < windowEnd {
-                    result.append(DoseOccurrence(
-                        medicationID: spec.medicationID, scheduledAt: at,
-                        sequenceIndex: sequence, amount: stage.amount,
-                        stageLabel: stage.label))
-                }
-                sequence += 1
-            }
+        let payloads = stages.map {
+            DayPayload(times: $0.times.sorted(), amount: $0.amount, label: $0.label)
         }
-        return result
+
+        return dayPattern(spec: spec, from: windowStart, to: windowEnd,
+                          calendar: cal, maxDays: totalDays) { dayIndex, _ in
+            guard let stageIdx = stageStartDay.lastIndex(where: { $0 <= dayIndex }) else { return nil }
+            return payloads[stageIdx]
+        }
     }
 
     // MARK: - Monthly

@@ -29,5 +29,12 @@
     "swiftmodule": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/PatternTests~partial.swiftmodule",
     "swift-dependencies": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/PatternTests.swiftdeps",
     "diagnostics": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/PatternTests.dia"
+  },
+  "/home/user/jubilant-enigma/Packages/ScheduleEngine/Tests/ScheduleEngineTests/SkipAheadTests.swift": {
+    "dependencies": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/SkipAheadTests.d",
+    "object": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/SkipAheadTests.swift.o",
+    "swiftmodule": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/SkipAheadTests~partial.swiftmodule",
+    "swift-dependencies": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/SkipAheadTests.swiftdeps",
+    "diagnostics": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEngineTests.build/SkipAheadTests.dia"
   }
 }

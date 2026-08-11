@@ -4,9 +4,10 @@ import PetModel
 import ScheduleEngine
 import DesignSystem
 
-/// Shell version of the medication form (04-SCREENS.md §5.1): fixed-times
-/// daily schedules with the live next-doses preview straight from the engine.
-/// The other six patterns plug into the same preview in Phase 2.
+/// The medication form (04-SCREENS.md §5.1): six of the seven schedule
+/// patterns with the live next-doses preview straight from the engine, plus
+/// end policies (ongoing / after N doses / on a date). The taper builder is
+/// its own flow and arrives with Phase 2.
 struct MedicationFormView: View {
     let pet: Pet
 
@@ -17,7 +18,37 @@ struct MedicationFormView: View {
     @State private var strength = ""
     @State private var amountValue = 1.0
     @State private var amountUnit = "tablet"
+
+    @State private var pattern: PatternChoice = .everyDay
     @State private var times: [Date] = [defaultTime(hour: 8)]
+    @State private var selectedWeekdays: Set<Weekday> = [.monday]
+    @State private var everyN = 2
+    @State private var monthDay = 1
+    @State private var intervalHours = 12
+    @State private var prnGapHours = 6
+    @State private var prnHasDailyCap = false
+    @State private var prnMaxPerDay = 3
+
+    @State private var endChoice: EndChoice = .ongoing
+    @State private var endDosesCount = 14
+    @State private var endDate = Calendar.current.date(byAdding: .day, value: 14, to: Date()) ?? Date()
+
+    enum PatternChoice: String, CaseIterable, Identifiable {
+        case everyDay = "Every day"
+        case weekdays = "Days of the week"
+        case everyNDays = "Every N days"
+        case monthly = "Monthly"
+        case interval = "Every N hours"
+        case asNeeded = "As needed"
+        var id: String { rawValue }
+    }
+
+    enum EndChoice: String, CaseIterable, Identifiable {
+        case ongoing = "Ongoing"
+        case afterDoses = "After a number of doses"
+        case onDate = "On a date"
+        var id: String { rawValue }
+    }
 
     private static func defaultTime(hour: Int) -> Date {
         Calendar.current.date(bySettingHour: hour, minute: 0, second: 0, of: Date()) ?? Date()
@@ -38,37 +69,40 @@ struct MedicationFormView: View {
                     TextField("Unit", text: $amountUnit)
                 }
 
-                Section("Times — every day") {
-                    ForEach(times.indices, id: \.self) { index in
-                        DatePicker("Dose \(index + 1)", selection: $times[index],
-                                   displayedComponents: .hourAndMinute)
+                Section("Schedule") {
+                    Picker("Repeats", selection: $pattern) {
+                        ForEach(PatternChoice.allCases) { p in
+                            Text(p.rawValue).tag(p)
+                        }
                     }
-                    .onDelete { offsets in
-                        times.remove(atOffsets: offsets)
+                    .onChange(of: pattern) {
+                        if times.isEmpty {
+                            times = [Self.defaultTime(hour: 9)]
+                        }
                     }
-                    Button {
-                        times.append(Self.defaultTime(hour: 20))
-                    } label: {
-                        Label("Add a time", systemImage: "plus")
+                    patternFields
+                }
+
+                if pattern != .asNeeded {
+                    Section("Ends") {
+                        Picker("Ends", selection: $endChoice) {
+                            ForEach(EndChoice.allCases) { c in
+                                Text(c.rawValue).tag(c)
+                            }
+                        }
+                        .pickerStyle(.menu)
+                        if endChoice == .afterDoses {
+                            Stepper("After \(endDosesCount) dose\(endDosesCount == 1 ? "" : "s")",
+                                    value: $endDosesCount, in: 1...365)
+                        }
+                        if endChoice == .onDate {
+                            DatePicker("Last day", selection: $endDate, displayedComponents: .date)
+                        }
                     }
                 }
 
-                Section("Next doses") {
-                    let preview = previewOccurrences()
-                    if preview.isEmpty {
-                        Text("Add at least one time.")
-                            .foregroundStyle(.secondary)
-                    } else {
-                        ForEach(preview, id: \.scheduledAt) { occ in
-                            HStack {
-                                Text(occ.scheduledAt, format: .dateTime.weekday(.wide).month().day())
-                                Spacer()
-                                Text(occ.scheduledAt, style: .time)
-                                    .foregroundStyle(.secondary)
-                            }
-                            .font(.subheadline)
-                        }
-                    }
+                Section(pattern == .asNeeded ? "Availability" : "Next doses") {
+                    previewSection
                 }
             }
             .navigationTitle("Add a medication")
@@ -85,8 +119,99 @@ struct MedicationFormView: View {
         }
     }
 
+    // MARK: - Pattern-specific fields
+
+    @ViewBuilder
+    private var patternFields: some View {
+        switch pattern {
+        case .everyDay:
+            timesEditor
+
+        case .weekdays:
+            WeekdayPicker(selection: $selectedWeekdays)
+            timesEditor
+
+        case .everyNDays:
+            Stepper("Every \(everyN) days", value: $everyN, in: 2...60)
+            timesEditor
+
+        case .monthly:
+            Picker("Day of the month", selection: $monthDay) {
+                ForEach(1...31, id: \.self) { d in
+                    Text("Day \(d)").tag(d)
+                }
+            }
+            if monthDay > 28 {
+                Text("In shorter months this lands on the last day.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            DatePicker("Time", selection: $times[0], displayedComponents: .hourAndMinute)
+
+        case .interval:
+            Stepper("Every \(intervalHours) hours", value: $intervalHours, in: 1...72)
+            Text("The first dose is scheduled from when you save; each later dose follows the previous one you log.")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+
+        case .asNeeded:
+            Stepper("At least \(prnGapHours) hours apart", value: $prnGapHours, in: 1...48)
+            Toggle("Daily limit", isOn: $prnHasDailyCap)
+            if prnHasDailyCap {
+                Stepper("At most \(prnMaxPerDay) per day", value: $prnMaxPerDay, in: 1...12)
+            }
+        }
+    }
+
+    private var timesEditor: some View {
+        Group {
+            ForEach(times.indices, id: \.self) { index in
+                DatePicker("Dose \(index + 1)", selection: $times[index],
+                           displayedComponents: .hourAndMinute)
+            }
+            .onDelete { offsets in
+                times.remove(atOffsets: offsets)
+            }
+            Button {
+                times.append(Self.defaultTime(hour: 20))
+            } label: {
+                Label("Add a time", systemImage: "plus")
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var previewSection: some View {
+        let preview = previewOccurrences()
+        if pattern == .asNeeded {
+            Text("Shown on Today as available whenever \(prnGapHours) hours have passed since the last dose\(prnHasDailyCap ? ", up to \(prnMaxPerDay) per day" : "").")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+        } else if preview.isEmpty {
+            Text(times.isEmpty ? "Add at least one time." : "No upcoming doses with these settings.")
+                .foregroundStyle(.secondary)
+        } else {
+            ForEach(preview, id: \.scheduledAt) { occ in
+                HStack {
+                    Text(occ.scheduledAt, format: .dateTime.weekday(.wide).month().day())
+                    Spacer()
+                    Text(occ.scheduledAt, style: .time)
+                        .foregroundStyle(.secondary)
+                }
+                .font(.subheadline)
+            }
+        }
+    }
+
+    // MARK: - Building the schedule
+
     private var canSave: Bool {
-        !name.trimmingCharacters(in: .whitespaces).isEmpty && !times.isEmpty
+        guard !name.trimmingCharacters(in: .whitespaces).isEmpty else { return false }
+        switch pattern {
+        case .everyDay, .everyNDays: return !times.isEmpty
+        case .weekdays: return !times.isEmpty && !selectedWeekdays.isEmpty
+        case .monthly, .interval, .asNeeded: return true
+        }
     }
 
     private func timeOfDayList() -> [TimeOfDay] {
@@ -99,18 +224,56 @@ struct MedicationFormView: View {
     }
 
     private func builtSchedule() -> DoseSchedule {
-        .fixedTimes(times: timeOfDayList(), days: .daily,
-                    amount: DoseAmount(value: amountValue, unit: amountUnit))
+        let amount = DoseAmount(value: amountValue, unit: amountUnit)
+        switch pattern {
+        case .everyDay:
+            return .fixedTimes(times: timeOfDayList(), days: .daily, amount: amount)
+        case .weekdays:
+            return .fixedTimes(times: timeOfDayList(), days: .weekdays(selectedWeekdays), amount: amount)
+        case .everyNDays:
+            return .everyNDays(n: everyN, times: timeOfDayList(), amount: amount)
+        case .monthly:
+            let t = timeOfDayList().first ?? TimeOfDay(hour: 9, minute: 0)
+            return .monthly(day: monthDay, time: t, amount: amount)
+        case .interval:
+            return .interval(hours: Double(intervalHours), amount: amount)
+        case .asNeeded:
+            return .asNeeded(minimumGapHours: Double(prnGapHours),
+                             maxPerDay: prnHasDailyCap ? prnMaxPerDay : nil,
+                             amount: amount)
+        }
+    }
+
+    private func builtEndPolicy() -> EndPolicy {
+        guard pattern != .asNeeded else { return .openEnded }
+        switch endChoice {
+        case .ongoing:
+            return .openEnded
+        case .afterDoses:
+            return .afterTotalDoses(endDosesCount)
+        case .onDate:
+            return .onDate(DateOnly(of: endDate, in: Calendar.current))
+        }
+    }
+
+    private func anchorDate(clock: SystemClock) -> Date {
+        // Interval chains from its anchor instant; calendar patterns anchor to
+        // the start of today so today's remaining times are included.
+        pattern == .interval ? clock.now : clock.calendar.startOfDay(for: clock.now)
     }
 
     /// The live preview (04-SCREENS.md §5.1): the engine's actual output for
     /// the next 5 occurrences — what will really happen, before saving.
     private func previewOccurrences() -> [DoseOccurrence] {
-        guard !times.isEmpty else { return [] }
         let clock = SystemClock()
-        let anchor = clock.calendar.startOfDay(for: clock.now)
-        guard let horizon = clock.calendar.date(byAdding: .day, value: 7, to: clock.now) else { return [] }
-        let spec = ScheduleSpec(medicationID: UUID(), schedule: builtSchedule(), anchor: anchor)
+        // Far enough out that monthly and every-N-days always show 5 entries.
+        guard let horizon = clock.calendar.date(byAdding: .day, value: 185, to: clock.now) else { return [] }
+        let spec = ScheduleSpec(
+            medicationID: UUID(),
+            schedule: builtSchedule(),
+            anchor: anchorDate(clock: clock),
+            endPolicy: builtEndPolicy()
+        )
         let occurrences = ScheduleEngine.occurrences(for: spec, from: clock.now, to: horizon, using: clock)
         return Array(occurrences.prefix(5))
     }
@@ -118,7 +281,6 @@ struct MedicationFormView: View {
     private func save() {
         let now = Date()
         let clock = SystemClock()
-        let anchor = clock.calendar.startOfDay(for: now)
 
         let med = Medication()
         med.pet = pet
@@ -129,7 +291,8 @@ struct MedicationFormView: View {
 
         guard let revision = ScheduleRevision.make(
             schedule: builtSchedule(),
-            anchor: anchor,
+            anchor: anchorDate(clock: clock),
+            endPolicy: builtEndPolicy(),
             createdAt: now
         ) else { return }
 
@@ -137,5 +300,48 @@ struct MedicationFormView: View {
         revision.medication = med
         context.insert(revision)
         dismiss()
+    }
+}
+
+// MARK: - Weekday picker
+
+private struct WeekdayPicker: View {
+    @Binding var selection: Set<Weekday>
+
+    private static let order: [(Weekday, String)] = [
+        (.sunday, "S"), (.monday, "M"), (.tuesday, "T"), (.wednesday, "W"),
+        (.thursday, "T"), (.friday, "F"), (.saturday, "S"),
+    ]
+
+    private static let fullNames: [Weekday: String] = [
+        .sunday: "Sunday", .monday: "Monday", .tuesday: "Tuesday",
+        .wednesday: "Wednesday", .thursday: "Thursday", .friday: "Friday",
+        .saturday: "Saturday",
+    ]
+
+    var body: some View {
+        HStack(spacing: FSSpace.sm) {
+            ForEach(Self.order, id: \.0) { day, letter in
+                let isOn = selection.contains(day)
+                Button {
+                    if isOn {
+                        selection.remove(day)
+                    } else {
+                        selection.insert(day)
+                    }
+                } label: {
+                    Text(letter)
+                        .font(.subheadline.weight(.semibold))
+                        .frame(width: 36, height: 36)
+                        .background(isOn ? Color.fsBrandNavy : Color(.systemGray5))
+                        .foregroundStyle(isOn ? .white : .primary)
+                        .clipShape(Circle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(Self.fullNames[day] ?? "")
+                .accessibilityAddTraits(isOn ? .isSelected : [])
+            }
+        }
+        .padding(.vertical, FSSpace.xs)
     }
 }
