@@ -12,7 +12,7 @@ struct MoreView: View {
                 .foregroundStyle(.secondary)
 
                 Section("About") {
-                    LabeledContent("Version", value: "0.1.0")
+                    LabeledContent("Version", value: "0.2.0")
                     Text("FloofSync is a record-keeping and reminder tool. It is not veterinary advice. Always follow your veterinarian's instructions.")
                         .font(.footnote)
                         .foregroundStyle(.secondary)

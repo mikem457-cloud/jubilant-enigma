@@ -71,18 +71,23 @@ struct MedicationFormView: View {
                     TextField("Unit", text: $amountUnit)
                 }
 
-                Section("Schedule") {
+                Section {
                     Picker("Repeats", selection: $pattern) {
                         ForEach(PatternChoice.allCases) { p in
                             Text(p.rawValue).tag(p)
                         }
                     }
+                    .pickerStyle(.menu)
                     .onChange(of: pattern) {
                         if times.isEmpty {
                             times = [Self.defaultTime(hour: 9)]
                         }
                     }
                     patternFields
+                } header: {
+                    Text("Schedule")
+                } footer: {
+                    Text("Tap Repeats to choose: every day, days of the week, every N days, monthly, every N hours, or as needed.")
                 }
 
                 if pattern != .asNeeded {
