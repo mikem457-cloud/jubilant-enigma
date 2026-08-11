@@ -64,13 +64,15 @@ public enum FSFormat {
     }
 
     /// Trims trailing zeros: 1.0 → "1", 1.50 → "1.5", 0.25 → "0.25".
+    /// Hand-rolled instead of NumberFormatter — this runs per visible dose row
+    /// and per keystroke in the med form, and allocating a NumberFormatter
+    /// there is measurable on-device cost for identical output.
     static func number(_ value: Double, maxFractionDigits: Int) -> String {
-        let formatter = NumberFormatter()
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = maxFractionDigits
-        formatter.numberStyle = .decimal
-        formatter.usesGroupingSeparator = false
-        return formatter.string(from: NSNumber(value: value)) ?? "\(value)"
+        var s = String(format: "%.\(maxFractionDigits)f", value)
+        if s.contains(".") {
+            while s.hasSuffix("0") { s.removeLast() }
+            if s.hasSuffix(".") { s.removeLast() }
+        }
+        return s
     }
 }

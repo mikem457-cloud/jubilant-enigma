@@ -32,16 +32,21 @@ public struct FixedClock: ScheduleEngineClock {
     }
 }
 
-/// The app's live clock. Constructed in `AppEnvironment`; the device zone is
-/// re-read on each access so zone changes take effect without restart.
+/// The app's live clock. The device zone is captured at init — construct a
+/// fresh SystemClock per unit of work (views already do) so zone changes are
+/// picked up, while repeated `calendar` accesses inside one computation stay
+/// free instead of rebuilding a Calendar each time.
 public struct SystemClock: ScheduleEngineClock {
-    public init() {}
+    public let timeZone: TimeZone
+    public let calendar: Calendar
+
+    public init() {
+        let zone = TimeZone.current
+        self.timeZone = zone
+        var cal = Calendar(identifier: .gregorian)
+        cal.timeZone = zone
+        self.calendar = cal
+    }
 
     public var now: Date { Date() }
-    public var timeZone: TimeZone { TimeZone.current }
-    public var calendar: Calendar {
-        var cal = Calendar(identifier: .gregorian)
-        cal.timeZone = TimeZone.current
-        return cal
-    }
 }

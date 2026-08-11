@@ -33,6 +33,8 @@ struct MedicationFormView: View {
     @State private var endDosesCount = 14
     @State private var endDate = Calendar.current.date(byAdding: .day, value: 14, to: Date()) ?? Date()
 
+    @State private var preview: [DoseOccurrence] = []
+
     enum PatternChoice: String, CaseIterable, Identifiable {
         case everyDay = "Every day"
         case weekdays = "Days of the week"
@@ -107,6 +109,10 @@ struct MedicationFormView: View {
             }
             .navigationTitle("Add a medication")
             .navigationBarTitleDisplayMode(.inline)
+            // The engine runs only when a schedule-shaping input changes —
+            // never on name/strength keystrokes, which only redraw the form.
+            .onAppear { preview = previewOccurrences() }
+            .onChange(of: previewKey) { preview = previewOccurrences() }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
@@ -180,9 +186,30 @@ struct MedicationFormView: View {
         }
     }
 
+    /// Everything that shapes the generated schedule. When this is unchanged,
+    /// the cached preview stays valid.
+    private struct PreviewKey: Equatable {
+        var pattern: PatternChoice
+        var times: [Date]
+        var weekdays: Set<Weekday>
+        var everyN: Int
+        var monthDay: Int
+        var intervalHours: Int
+        var amountValue: Double
+        var endChoice: EndChoice
+        var endDosesCount: Int
+        var endDate: Date
+    }
+
+    private var previewKey: PreviewKey {
+        PreviewKey(pattern: pattern, times: times, weekdays: selectedWeekdays,
+                   everyN: everyN, monthDay: monthDay, intervalHours: intervalHours,
+                   amountValue: amountValue, endChoice: endChoice,
+                   endDosesCount: endDosesCount, endDate: endDate)
+    }
+
     @ViewBuilder
     private var previewSection: some View {
-        let preview = previewOccurrences()
         if pattern == .asNeeded {
             Text("Shown on Today as available whenever \(prnGapHours) hours have passed since the last dose\(prnHasDailyCap ? ", up to \(prnMaxPerDay) per day" : "").")
                 .font(.subheadline)
