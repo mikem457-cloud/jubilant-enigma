@@ -1,0 +1,27 @@
+{
+  "object" : {
+    "artifacts" : [
+
+    ],
+    "dependencies" : [
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "scheduleengine",
+          "kind" : "fileSystem",
+          "location" : "/home/user/jubilant-enigma/Packages/ScheduleEngine",
+          "name" : "ScheduleEngine"
+        },
+        "state" : {
+          "name" : "fileSystem",
+          "path" : "/home/user/jubilant-enigma/Packages/ScheduleEngine"
+        },
+        "subpath" : "scheduleengine"
+      }
+    ],
+    "prebuilts" : [
+
+    ]
+  },
+  "version" : 7
+}

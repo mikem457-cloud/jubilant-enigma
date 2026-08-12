@@ -1,0 +1,19 @@
+{
+  "": {
+    "swift-dependencies": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEnginePackageDiscoveredTests.build/primary.swiftdeps"
+  },
+  "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEnginePackageDiscoveredTests.derived/ScheduleEngineTests.swift": {
+    "dependencies": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEnginePackageDiscoveredTests.build/ScheduleEngineTests.d",
+    "object": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEnginePackageDiscoveredTests.build/ScheduleEngineTests.swift.o",
+    "swiftmodule": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEnginePackageDiscoveredTests.build/ScheduleEngineTests~partial.swiftmodule",
+    "swift-dependencies": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEnginePackageDiscoveredTests.build/ScheduleEngineTests.swiftdeps",
+    "diagnostics": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEnginePackageDiscoveredTests.build/ScheduleEngineTests.dia"
+  },
+  "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEnginePackageDiscoveredTests.derived/all-discovered-tests.swift": {
+    "dependencies": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEnginePackageDiscoveredTests.build/all-discovered-tests.d",
+    "object": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEnginePackageDiscoveredTests.build/all-discovered-tests.swift.o",
+    "swiftmodule": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEnginePackageDiscoveredTests.build/all-discovered-tests~partial.swiftmodule",
+    "swift-dependencies": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEnginePackageDiscoveredTests.build/all-discovered-tests.swiftdeps",
+    "diagnostics": "/home/user/jubilant-enigma/Packages/ScheduleEngine/.build/x86_64-unknown-linux-gnu/debug/ScheduleEnginePackageDiscoveredTests.build/all-discovered-tests.dia"
+  }
+}

@@ -1,0 +1,164 @@
+client:
+  name: basic
+  file-system: device-agnostic
+tools: {}
+targets:
+  "DesignSystem-x86_64-unknown-linux-gnu-debug.module": ["<DesignSystem-x86_64-unknown-linux-gnu-debug.module>"]
+  "DesignSystemPackageDiscoveredTests-x86_64-unknown-linux-gnu-debug.module": ["<DesignSystemPackageDiscoveredTests-x86_64-unknown-linux-gnu-debug.module>"]
+  "DesignSystemPackageTests-x86_64-unknown-linux-gnu-debug.module": ["<DesignSystemPackageTests-x86_64-unknown-linux-gnu-debug.module>"]
+  "DesignSystemPackageTests-x86_64-unknown-linux-gnu-debug.test": ["<DesignSystemPackageTests-x86_64-unknown-linux-gnu-debug.test>"]
+  "DesignSystemTests-x86_64-unknown-linux-gnu-debug.module": ["<DesignSystemTests-x86_64-unknown-linux-gnu-debug.module>"]
+  "PackageStructure": ["<PackageStructure>"]
+  "main": ["<DesignSystem-x86_64-unknown-linux-gnu-debug.module>"]
+  "test": ["<DesignSystem-x86_64-unknown-linux-gnu-debug.module>","<DesignSystemPackageTests-x86_64-unknown-linux-gnu-debug.test>","<DesignSystemTests-x86_64-unknown-linux-gnu-debug.module>"]
+default: "main"
+nodes:
+  "/home/user/jubilant-enigma/Packages/DesignSystem/Sources/DesignSystem/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/home/user/jubilant-enigma/Packages/DesignSystem/Tests/DesignSystemTests/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+commands:
+  "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/DesignSystem.swiftmodule.o":
+    tool: shell
+    inputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules/DesignSystem.swiftmodule"]
+    outputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/DesignSystem.swiftmodule.o"]
+    description: "Wrapping AST for DesignSystem for debugging"
+    args: ["/opt/swift-root/usr/bin/swiftc","-modulewrap","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules/DesignSystem.swiftmodule","-o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/DesignSystem.swiftmodule.o","-target","x86_64-unknown-linux-gnu"]
+
+  "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/home/user/jubilant-enigma/Packages/DesignSystem/Sources/DesignSystem/Formatters.swift","/home/user/jubilant-enigma/Packages/DesignSystem/Sources/DesignSystem/Tokens.swift"]
+    outputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/sources"]
+    description: "Write auxiliary file /home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/sources"
+
+  "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.build/DesignSystemPackageDiscoveredTests.swiftmodule.o":
+    tool: shell
+    inputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules/DesignSystemPackageDiscoveredTests.swiftmodule"]
+    outputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.build/DesignSystemPackageDiscoveredTests.swiftmodule.o"]
+    description: "Wrapping AST for DesignSystemPackageDiscoveredTests for debugging"
+    args: ["/opt/swift-root/usr/bin/swiftc","-modulewrap","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules/DesignSystemPackageDiscoveredTests.swiftmodule","-o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.build/DesignSystemPackageDiscoveredTests.swiftmodule.o","-target","x86_64-unknown-linux-gnu"]
+
+  "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.derived/DesignSystemTests.swift","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.derived/all-discovered-tests.swift"]
+    outputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.build/sources"]
+    description: "Write auxiliary file /home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.build/sources"
+
+  "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.derived/all-discovered-tests.swift":
+    tool: test-discovery-tool
+    inputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemTests.build/FormatterTests.swift.o"]
+    outputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.derived/DesignSystemTests.swift","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.derived/all-discovered-tests.swift"]
+
+  "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.build/DesignSystemPackageTests.swiftmodule.o":
+    tool: shell
+    inputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules/DesignSystemPackageTests.swiftmodule"]
+    outputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.build/DesignSystemPackageTests.swiftmodule.o"]
+    description: "Wrapping AST for DesignSystemPackageTests for debugging"
+    args: ["/opt/swift-root/usr/bin/swiftc","-modulewrap","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules/DesignSystemPackageTests.swiftmodule","-o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.build/DesignSystemPackageTests.swiftmodule.o","-target","x86_64-unknown-linux-gnu"]
+
+  "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.derived/runner.swift"]
+    outputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.build/sources"]
+    description: "Write auxiliary file /home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.build/sources"
+
+  "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.derived/runner.swift":
+    tool: test-entry-point-tool
+    inputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules/DesignSystemPackageDiscoveredTests.swiftmodule"]
+    outputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.derived/runner.swift"]
+
+  "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/DesignSystem.swiftmodule.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/Formatters.swift.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/Tokens.swift.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.build/DesignSystemPackageDiscoveredTests.swiftmodule.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.build/DesignSystemTests.swift.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.build/all-discovered-tests.swift.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.build/DesignSystemPackageTests.swiftmodule.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.build/runner.swift.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemTests.build/DesignSystemTests.swiftmodule.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemTests.build/FormatterTests.swift.o"]
+    outputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.product/Objects.LinkFileList"
+
+  "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemTests.build/DesignSystemTests.swiftmodule.o":
+    tool: shell
+    inputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules/DesignSystemTests.swiftmodule"]
+    outputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemTests.build/DesignSystemTests.swiftmodule.o"]
+    description: "Wrapping AST for DesignSystemTests for debugging"
+    args: ["/opt/swift-root/usr/bin/swiftc","-modulewrap","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules/DesignSystemTests.swiftmodule","-o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemTests.build/DesignSystemTests.swiftmodule.o","-target","x86_64-unknown-linux-gnu"]
+
+  "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemTests.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/home/user/jubilant-enigma/Packages/DesignSystem/Tests/DesignSystemTests/FormatterTests.swift"]
+    outputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemTests.build/sources"]
+    description: "Write auxiliary file /home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemTests.build/sources"
+
+  "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/swift-version-1F6F182A228EA79D.txt":
+    tool: write-auxiliary-file
+    inputs: ["<swift-get-version>","/opt/swift-root/usr/bin/swiftc"]
+    outputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/swift-version-1F6F182A228EA79D.txt"]
+    always-out-of-date: "true"
+    description: "Write auxiliary file /home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/swift-version-1F6F182A228EA79D.txt"
+
+  "<DesignSystem-x86_64-unknown-linux-gnu-debug.module>":
+    tool: phony
+    inputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/Formatters.swift.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/Tokens.swift.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules/DesignSystem.swiftmodule"]
+    outputs: ["<DesignSystem-x86_64-unknown-linux-gnu-debug.module>"]
+
+  "<DesignSystemPackageDiscoveredTests-x86_64-unknown-linux-gnu-debug.module>":
+    tool: phony
+    inputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.build/DesignSystemTests.swift.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.build/all-discovered-tests.swift.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules/DesignSystemPackageDiscoveredTests.swiftmodule"]
+    outputs: ["<DesignSystemPackageDiscoveredTests-x86_64-unknown-linux-gnu-debug.module>"]
+
+  "<DesignSystemPackageTests-x86_64-unknown-linux-gnu-debug.module>":
+    tool: phony
+    inputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.build/runner.swift.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules/DesignSystemPackageTests.swiftmodule"]
+    outputs: ["<DesignSystemPackageTests-x86_64-unknown-linux-gnu-debug.module>"]
+
+  "<DesignSystemPackageTests-x86_64-unknown-linux-gnu-debug.test>":
+    tool: phony
+    inputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.xctest"]
+    outputs: ["<DesignSystemPackageTests-x86_64-unknown-linux-gnu-debug.test>"]
+
+  "<DesignSystemTests-x86_64-unknown-linux-gnu-debug.module>":
+    tool: phony
+    inputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemTests.build/FormatterTests.swift.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules/DesignSystemTests.swiftmodule"]
+    outputs: ["<DesignSystemTests-x86_64-unknown-linux-gnu-debug.module>"]
+
+  "C.DesignSystem-x86_64-unknown-linux-gnu-debug.module":
+    tool: shell
+    inputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/Sources/DesignSystem/Formatters.swift","/home/user/jubilant-enigma/Packages/DesignSystem/Sources/DesignSystem/Tokens.swift","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/swift-version-1F6F182A228EA79D.txt","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/sources"]
+    outputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/Formatters.swift.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/Tokens.swift.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules/DesignSystem.swiftmodule"]
+    description: "Compiling Swift Module 'DesignSystem' (2 sources)"
+    args: ["/opt/swift-root/usr/bin/swiftc","-module-name","DesignSystem","-emit-dependencies","-emit-module","-emit-module-path","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules/DesignSystem.swiftmodule","-output-file-map","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/output-file-map.json","-parse-as-library","-incremental","-c","@/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/sources","-I","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules","-target","x86_64-unknown-linux-gnu","-incremental","-enable-batch-mode","-serialize-diagnostics","-index-store-path","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/index/store","-Onone","-enable-testing","-j4","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/include/DesignSystem-Swift.h","-swift-version","6","-g","-Xcc","-fPIC","-Xcc","-g","-package-name","designsystem","-Xcc","-fno-omit-frame-pointer"]
+
+  "C.DesignSystemPackageDiscoveredTests-x86_64-unknown-linux-gnu-debug.module":
+    tool: shell
+    inputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.derived/DesignSystemTests.swift","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.derived/all-discovered-tests.swift","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/swift-version-1F6F182A228EA79D.txt","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules/DesignSystemTests.swiftmodule","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.build/sources"]
+    outputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.build/DesignSystemTests.swift.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.build/all-discovered-tests.swift.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules/DesignSystemPackageDiscoveredTests.swiftmodule"]
+    description: "Compiling Swift Module 'DesignSystemPackageDiscoveredTests' (2 sources)"
+    args: ["/opt/swift-root/usr/bin/swiftc","-module-name","DesignSystemPackageDiscoveredTests","-emit-dependencies","-emit-module","-emit-module-path","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules/DesignSystemPackageDiscoveredTests.swiftmodule","-output-file-map","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.build/output-file-map.json","-parse-as-library","-incremental","-c","@/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.build/sources","-I","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules","-target","x86_64-unknown-linux-gnu","-incremental","-enable-batch-mode","-serialize-diagnostics","-index-store-path","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/index/store","-Onone","-enable-testing","-Xfrontend","-enable-cross-import-overlays","-j4","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.build/include/DesignSystemPackageDiscoveredTests-Swift.h","-g","-Xcc","-fPIC","-Xcc","-g","-package-name","designsystem","-Xcc","-fno-omit-frame-pointer"]
+
+  "C.DesignSystemPackageTests-x86_64-unknown-linux-gnu-debug.module":
+    tool: shell
+    inputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.derived/runner.swift","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/swift-version-1F6F182A228EA79D.txt","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules/DesignSystemTests.swiftmodule","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules/DesignSystemPackageDiscoveredTests.swiftmodule","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.build/sources"]
+    outputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.build/runner.swift.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules/DesignSystemPackageTests.swiftmodule"]
+    description: "Compiling Swift Module 'DesignSystemPackageTests' (1 sources)"
+    args: ["/opt/swift-root/usr/bin/swiftc","-module-name","DesignSystemPackageTests","-emit-dependencies","-emit-module","-emit-module-path","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules/DesignSystemPackageTests.swiftmodule","-output-file-map","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.build/output-file-map.json","-parse-as-library","-incremental","-c","@/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.build/sources","-I","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules","-target","x86_64-unknown-linux-gnu","-incremental","-enable-batch-mode","-serialize-diagnostics","-index-store-path","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/index/store","-Onone","-enable-testing","-Xfrontend","-enable-cross-import-overlays","-j4","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.build/include/DesignSystemPackageTests-Swift.h","-g","-Xcc","-fPIC","-Xcc","-g","-package-name","designsystem","-Xcc","-fno-omit-frame-pointer"]
+
+  "C.DesignSystemPackageTests-x86_64-unknown-linux-gnu-debug.test":
+    tool: shell
+    inputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/DesignSystem.swiftmodule.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/Formatters.swift.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/Tokens.swift.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.build/DesignSystemPackageDiscoveredTests.swiftmodule.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.build/DesignSystemTests.swift.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageDiscoveredTests.build/all-discovered-tests.swift.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.build/DesignSystemPackageTests.swiftmodule.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.build/runner.swift.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemTests.build/DesignSystemTests.swiftmodule.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemTests.build/FormatterTests.swift.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.product/Objects.LinkFileList"]
+    outputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.xctest"]
+    description: "Linking ./.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.xctest"
+    args: ["/opt/swift-root/usr/bin/swiftc","-L","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug","-o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.xctest","-module-name","DesignSystemPackageTests","-emit-executable","-Xlinker","-rpath=$ORIGIN","@/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemPackageTests.product/Objects.LinkFileList","-target","x86_64-unknown-linux-gnu","-g"]
+
+  "C.DesignSystemTests-x86_64-unknown-linux-gnu-debug.module":
+    tool: shell
+    inputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/Tests/DesignSystemTests/FormatterTests.swift","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/swift-version-1F6F182A228EA79D.txt","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules/DesignSystem.swiftmodule","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemTests.build/sources"]
+    outputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemTests.build/FormatterTests.swift.o","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules/DesignSystemTests.swiftmodule"]
+    description: "Compiling Swift Module 'DesignSystemTests' (1 sources)"
+    args: ["/opt/swift-root/usr/bin/swiftc","-module-name","DesignSystemTests","-emit-dependencies","-emit-module","-emit-module-path","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules/DesignSystemTests.swiftmodule","-output-file-map","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemTests.build/output-file-map.json","-parse-as-library","-incremental","-c","@/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystemTests.build/sources","-I","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/Modules","-target","x86_64-unknown-linux-gnu","-incremental","-enable-batch-mode","-serialize-diagnostics","-index-store-path","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/index/store","-Onone","-enable-testing","-Xfrontend","-enable-cross-import-overlays","-j4","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/ModuleCache","-parseable-output","-parse-as-library","-swift-version","6","-g","-Xcc","-fPIC","-Xcc","-g","-package-name","designsystem","-Xcc","-fno-omit-frame-pointer"]
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/home/user/jubilant-enigma/Packages/DesignSystem/Sources/DesignSystem/","/home/user/jubilant-enigma/Packages/DesignSystem/Tests/DesignSystemTests/","/home/user/jubilant-enigma/Packages/DesignSystem/Package.swift","/home/user/jubilant-enigma/Packages/DesignSystem/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+

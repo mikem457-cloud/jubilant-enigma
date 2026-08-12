@@ -1,0 +1,19 @@
+{
+  "": {
+    "swift-dependencies": "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/primary.swiftdeps"
+  },
+  "/home/user/jubilant-enigma/Packages/DesignSystem/Sources/DesignSystem/Formatters.swift": {
+    "dependencies": "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/Formatters.d",
+    "object": "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/Formatters.swift.o",
+    "swiftmodule": "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/Formatters~partial.swiftmodule",
+    "swift-dependencies": "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/Formatters.swiftdeps",
+    "diagnostics": "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/Formatters.dia"
+  },
+  "/home/user/jubilant-enigma/Packages/DesignSystem/Sources/DesignSystem/Tokens.swift": {
+    "dependencies": "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/Tokens.d",
+    "object": "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/Tokens.swift.o",
+    "swiftmodule": "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/Tokens~partial.swiftmodule",
+    "swift-dependencies": "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/Tokens.swiftdeps",
+    "diagnostics": "/home/user/jubilant-enigma/Packages/DesignSystem/.build/x86_64-unknown-linux-gnu/debug/DesignSystem.build/Tokens.dia"
+  }
+}
