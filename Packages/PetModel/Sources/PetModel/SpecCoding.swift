@@ -15,7 +15,9 @@ extension ScheduleRevision {
         guard let schedule = try? JSONDecoder().decode(DoseSchedule.self, from: scheduleData) else {
             return nil
         }
-        let endPolicy = (try? JSONDecoder().decode(EndPolicy.self, from: endPolicyData)) ?? .openEnded
+        guard let endPolicy = try? JSONDecoder().decode(EndPolicy.self, from: endPolicyData) else {
+            return nil
+        }
         return ScheduleSpec(
             medicationID: medicationID,
             schedule: schedule,
