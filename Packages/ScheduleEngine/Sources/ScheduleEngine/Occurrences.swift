@@ -17,12 +17,15 @@ public enum ScheduleEngine {
     ///   of doses already logged before `lastCompleted`, because a drifting
     ///   chain cannot reconstruct its own past. Calendar patterns count their
     ///   own occurrences from the anchor and ignore this.
+    /// - `prnDosesToday`: completed PRN doses on the clock's current calendar
+    ///   day. Pass this whenever the PRN schedule has a daily cap.
     public static func occurrences(
         for spec: ScheduleSpec,
         from windowStart: Date,
         to windowEnd: Date,
         lastCompleted: Date? = nil,
         priorDoseCount: Int = 0,
+        prnDosesToday: Int? = nil,
         using clock: some ScheduleEngineClock
     ) -> [DoseOccurrence] {
         guard windowStart < windowEnd else { return [] }
@@ -78,7 +81,7 @@ public enum ScheduleEngine {
         case .asNeeded(let gap, let maxPerDay, let amount):
             guard let available = nextAllowedDose(
                 minimumGapHours: gap, maxPerDay: maxPerDay,
-                lastCompleted: lastCompleted, dosesToday: nil, using: clock
+                lastCompleted: lastCompleted, dosesToday: prnDosesToday, using: clock
             ) else { return [] }
             let at = max(available, windowStart)
             guard at < effectiveEnd else { return [] }
@@ -97,6 +100,7 @@ public enum ScheduleEngine {
         to windowEnd: Date,
         lastCompleted: Date? = nil,
         priorDoseCount: Int = 0,
+        prnDosesToday: Int? = nil,
         using clock: some ScheduleEngineClock
     ) -> [DoseOccurrence] {
         let sorted = revisions.sorted { $0.effectiveFrom < $1.effectiveFrom }
@@ -109,6 +113,7 @@ public enum ScheduleEngine {
             result.append(contentsOf: occurrences(
                 for: spec, from: start, to: end,
                 lastCompleted: lastCompleted, priorDoseCount: priorDoseCount,
+                prnDosesToday: prnDosesToday,
                 using: clock))
         }
         return result.sorted { $0.scheduledAt < $1.scheduledAt }
