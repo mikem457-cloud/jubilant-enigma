@@ -8,6 +8,7 @@ struct AddPetView: View {
 
     @State private var name = ""
     @State private var species: Species = .dog
+    @State private var errorMessage: String?
 
     var body: some View {
         NavigationStack {
@@ -30,6 +31,14 @@ struct AddPetView: View {
                         .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
                 }
             }
+            .alert("Couldn’t save pet", isPresented: Binding(
+                get: { errorMessage != nil },
+                set: { if !$0 { errorMessage = nil } }
+            )) {
+                Button("OK", role: .cancel) { errorMessage = nil }
+            } message: {
+                Text(errorMessage ?? "Unknown error")
+            }
         }
     }
 
@@ -41,7 +50,13 @@ struct AddPetView: View {
         pet.createdAt = now
         pet.updatedAt = now
         context.insert(pet)
-        dismiss()
+        do {
+            try context.save()
+            dismiss()
+        } catch {
+            context.delete(pet)
+            errorMessage = error.localizedDescription
+        }
     }
 
     private func label(for species: Species) -> String {

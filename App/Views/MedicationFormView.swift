@@ -34,6 +34,7 @@ struct MedicationFormView: View {
     @State private var endDate = Calendar.current.date(byAdding: .day, value: 14, to: Date()) ?? Date()
 
     @State private var preview: [DoseOccurrence] = []
+    @State private var errorMessage: String?
 
     enum PatternChoice: String, CaseIterable, Identifiable {
         case everyDay = "Every day"
@@ -126,6 +127,14 @@ struct MedicationFormView: View {
                     Button("Save") { save() }
                         .disabled(!canSave)
                 }
+            }
+            .alert("Couldn’t save medication", isPresented: Binding(
+                get: { errorMessage != nil },
+                set: { if !$0 { errorMessage = nil } }
+            )) {
+                Button("OK", role: .cancel) { errorMessage = nil }
+            } message: {
+                Text(errorMessage ?? "Unknown error")
             }
         }
     }
@@ -326,12 +335,22 @@ struct MedicationFormView: View {
             anchor: anchorDate(clock: clock),
             endPolicy: builtEndPolicy(),
             createdAt: now
-        ) else { return }
+        ) else {
+            errorMessage = "The medication schedule could not be encoded. Review the schedule and try again."
+            return
+        }
 
         context.insert(med)
         revision.medication = med
         context.insert(revision)
-        dismiss()
+        do {
+            try context.save()
+            dismiss()
+        } catch {
+            context.delete(revision)
+            context.delete(med)
+            errorMessage = error.localizedDescription
+        }
     }
 }
 
