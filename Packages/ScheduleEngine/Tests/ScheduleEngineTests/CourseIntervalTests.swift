@@ -80,6 +80,20 @@ struct CourseIntervalTests {
         #expect(occ.first?.sequenceIndex == 1)
     }
 
+    @Test("A completed interval course does not schedule another dose")
+    func completedIntervalCourseStops() {
+        let s = spec(.interval(hours: 12, amount: oneTablet),
+                     anchor: utc(2026, 1, 1, 8, 0),
+                     end: .afterTotalDoses(3))
+        let occ = ScheduleEngine.occurrences(
+            for: s,
+            from: utc(2026, 1, 2), to: utc(2026, 1, 4),
+            lastCompleted: utc(2026, 1, 2, 8, 0),
+            priorDoseCount: 2,
+            using: clock("UTC"))
+        #expect(occ.isEmpty)
+    }
+
     @Test("12 elapsed hours across spring-forward is 12 real hours, 13 wall hours")
     func intervalAcrossDST() {
         let s = spec(.interval(hours: 12, amount: oneTablet),
@@ -124,6 +138,20 @@ struct CourseIntervalTests {
             lastCompleted: nil, dosesToday: 0,
             using: clock("UTC", now: now))
         #expect(next == now)
+    }
+
+    @Test("PRN occurrence generation honors the daily cap")
+    func prnOccurrenceHonorsCap() {
+        let now = utc(2026, 1, 5, 12, 0)
+        let s = spec(.asNeeded(minimumGapHours: 4, maxPerDay: 2, amount: oneTablet),
+                     anchor: utc(2026, 1, 1))
+        let occ = ScheduleEngine.occurrences(
+            for: s,
+            from: utc(2026, 1, 5), to: utc(2026, 1, 6),
+            lastCompleted: utc(2026, 1, 5, 10, 0),
+            prnDosesToday: 2,
+            using: clock("UTC", now: now))
+        #expect(occ.isEmpty)
     }
 
     // MARK: Revisions
